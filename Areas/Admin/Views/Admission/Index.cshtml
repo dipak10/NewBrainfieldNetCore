@@ -1,15 +1,16 @@
 ﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-@model List<NewBrainfieldNetCore.Dto.SubjectDTO>
+@model List<NewBrainfieldNetCore.Entities.tblAdmissions>
 @{
     Layout = "_AdminLayout";
 }
+
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>List Subjects</h1>
+                <h1>Admissions</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -25,8 +26,8 @@
     <!-- Default box -->
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Subjects</h3>
-
+            <h3 class="card-title">Admissions List</h3>
+           
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                     <i class="fas fa-minus"></i>
@@ -41,7 +42,14 @@
             <table class="table table-head-fixed text-nowrap">
                 <thead>
                     <tr>
-                        <th>Standard</th>
+                        <th>Order No</th>
+                        <th>Student Name</th>
+                        <th>Adhar No</th>
+                        <th>Email</th>
+                        <th>Contact No</th>
+                        <th>Created On</th>
+                        <th>MadePayment</th>
+                        <th>Details</th>
                         <th>Delete</th>
                     </tr>
                 </thead>
@@ -49,17 +57,47 @@
                     @foreach (var x in Model)
                     {
                         <tr>
-                            @*<td>@x.Standard.StandardName</td>
-                            <td>@x.SubjectName</td>
+                            <td>
+                                @x.AdmissionOrderNo
+                            </td>
+                            <td>
+                                @x.StudentName
+                            </td>
+
+                            <td>
+                                @x.AdharNo
+                            </td>
+                            <td>
+                                @x.StudentEmail
+                            </td>
+                            <td>
+                                @x.StudentContactNo
+                            </td>
+                            <td>
+                                @x.CreatedOn
+                            </td>
+
+                            <td>
+                                @x.HasMadePayment
+                            </td>
+                            <td>
+                                <a class="btn btn-info"
+                                   asp-area="Admin"
+                                   asp-controller="Admission"
+                                   asp-action="Details"
+                                   asp-route-id="@x.AdmissionId">
+                                    Delete
+                                </a>
+                            </td>
                             <td>
                                 <a class="btn btn-danger"
                                    asp-area="Admin"
                                    asp-controller="Standard"
                                    asp-action="Delete"
-                                   asp-route-id="@x.StandardID">
+                                   asp-route-id="@x.AdmissionId">
                                     Delete
                                 </a>
-                            </td>*@
+                            </td>
                         </tr>
                     }
                 </tbody>
