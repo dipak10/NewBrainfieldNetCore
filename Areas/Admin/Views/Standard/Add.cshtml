@@ -1,0 +1,60 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@model NewBrainfieldNetCore.Dto.StandardDTO
+@{
+    Layout = "_AdminLayout";
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Manage Standard</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <!-- Default box -->
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <div class="card">
+                <form asp-controller="Standard" asp-action="Add" method="post">
+                    <div class="card-header">
+                        <h3 class="card-title">Add Standard</h3>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="position-relative form-group">
+                            <label asp-for="StandardName" class=""></label>
+                            <input asp-for="StandardName" type="text" class="form-control" placeholder="Standard">
+                            <span asp-validation-for="StandardName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer">
+                        <input type="submit" class="btn btn-outline-primary btn-lg pull-right" value="Save">
+                    </div>
+                    <!-- /.card-footer-->
+                </form>
+            </div>
+            <!-- /.card -->
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</section>
+<!-- /.content -->

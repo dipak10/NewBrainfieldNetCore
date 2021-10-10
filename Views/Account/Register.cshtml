@@ -1,0 +1,66 @@
+﻿@model NewBrainfieldNetCore.Viewmodels.SignUp.RegisterViewModel
+
+@{
+    ViewData["Title"] = "Regiter";
+}
+
+
+<div class="page-title mt-30">
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="container">
+                <h3>Register</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="register-area ptb-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="register-content">
+                    <div class="heading">Register</div>
+                    <form asp-controller="Account" asp-action="Register" method="post">                        
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12">
+                                <div class="form-group">
+                                    <input asp-for="StudentName" type="text" class="form-control" placeholder="Full Name">
+                                    <span asp-validation-for="StudentName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12">
+                                <div class="form-group">
+                                    <input asp-for="EmailAddress" type="email" class="form-control" placeholder="Email Address">
+                                    <span asp-validation-for="EmailAddress" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12">
+                                <div class="form-group">
+                                    <input asp-for="PhoneNumber" type="text" class="form-control" placeholder="Phone Number">
+                                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12">
+                                <div class="form-group">
+                                    <input asp-for="Password" type="password" class="form-control" placeholder="Password (At least 8 character, aplpha numeric and one special character)">
+                                    <span asp-validation-for="Password" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12">
+                                <div class="form-group">
+                                    <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="Repeat Password">
+                                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12">
+                                <button class="btn btn-primary" type="submit" formmethod="post">Sign Up</button>
+                            </div>
+                        </div>
+                    </form>
+                    <h4>Are you a member? <a href="login.html">Login Now!</a></h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
