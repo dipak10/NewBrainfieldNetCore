@@ -38,6 +38,8 @@ namespace NewBrainfieldNetCore.Services
             
             List<tblSubject> data = await _commonRepository.GetSubjects();
 
+
+            //test commit
             //tblSubject sa = null;           
             return data;
         }
