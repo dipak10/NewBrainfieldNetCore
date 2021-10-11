@@ -37,6 +37,7 @@
     <Folder Include="Tools\" />
     <Folder Include="wwwroot\Images\Blog\" />
     <Folder Include="wwwroot\js\" />
+    <Folder Include="wwwroot\DownloadFiles\" />
   </ItemGroup>
 
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">

@@ -22,7 +22,11 @@ namespace NewBrainfieldNetCore.Helpers
 
             CreateMap<tblDownloadCategory, DownloadCategoryDTO>();
             CreateMap<DownloadCategoryDTO, tblDownloadCategory>();
-           
+
+            CreateMap<DownloadsDTO, tblDownloads>();
+            CreateMap<tblDownloads, DownloadsDTO>();
+
+
         }
     }
 }
