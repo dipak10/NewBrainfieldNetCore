@@ -26,8 +26,8 @@ namespace NewBrainfieldNetCore.Data.Migrations
         {
             Create.Table(TableName)
                 .WithColumn(NewsID).AsInt32().PrimaryKey().Identity().NotNullable()
-                .WithColumn(NewsHeadline).AsString().NotNullable()
-                .WithColumn(NewsDetail).AsString().NotNullable()
+                .WithColumn(NewsHeadline).AsCustom("varchar(max)").NotNullable()
+                .WithColumn(NewsDetail).AsCustom("varchar(max)").NotNullable()
                 .WithColumn(CreatedDate).AsDateTime().NotNullable()
                 .WithColumn(IsActive).AsBoolean().NotNullable();
         }

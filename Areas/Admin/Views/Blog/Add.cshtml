@@ -1,0 +1,102 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@model NewBrainfieldNetCore.Dto.BlogDTO
+
+@{
+    Layout = "_AdminLayout";
+}
+
+<!-- include summernote css/js -->
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+
+
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content">
+    <div class="row">        
+        <div class="col-md-12">
+            <div class="card">
+                <form asp-controller="Blog" asp-action="Add" enctype="multipart/form-data" method="post">
+                    <div class="card-header">
+                        <h3 class="card-title">Add Blog</h3>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="position-relative form-group">
+                            <label asp-for=" BlogTitle" class=""></label>
+                            <input asp-for="BlogTitle" type="text" class="form-control" placeholder="BlogTitle">
+                            <span asp-validation-for="BlogTitle" class="text-danger"></span>
+                        </div>
+
+                        <div class="position-relative form-group">
+                            <label asp-for="BlogContent" class=""></label>
+                            <textarea asp-for="BlogContent" type="text" class="form-control" placeholder="BlogContent" id="summernote"></textarea>
+                            <span asp-validation-for="BlogContent" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="custom-file">
+                                <label asp-for="BlogImage" class=""></label>
+                                <input asp-for="BlogImage" type="file" class="custom-file-input" id="customFile" accept="image/*">
+                                <label class="custom-file-label" for="customFile">Choose file</label>
+                                <span asp-validation-for="BlogImage" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="card-footer">
+                        <a class="btn btn-outline-primary btn-lg pull-left"
+                           asp-area="Admin"
+                           asp-controller="Blog"
+                           asp-action="Index">
+                            Blogs List
+                        </a>
+
+                        <input type="reset" class="btn btn-outline-light btn-lg pull-right ml-3" value="Cancel">
+
+                        <input type="submit" class="btn btn-outline-success btn-lg pull-right" value="Save">
+                    </div>
+                </form>
+            </div>
+        </div>        
+    </div>
+</section>
+
+
+
+@section scripts{
+
+    <script type="text/javascript">
+        $(".custom-file-input").on("change", function () {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+
+        $('#summernote').summernote({
+            placeholder: 'Hello Bootstrap 4',
+            tabsize: 2,
+            height: 200
+        });
+
+    </script>
+}
