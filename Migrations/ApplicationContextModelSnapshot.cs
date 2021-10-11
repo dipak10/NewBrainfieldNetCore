@@ -221,6 +221,28 @@ namespace NewBrainfieldNetCore.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("NewBrainfieldNetCore.Entities.tblAdmissionFees", b =>
+                {
+                    b.Property<int>("FeesId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<decimal>("Amount")
+                        .HasPrecision(5, 2)
+                        .HasColumnType("decimal(5,2)");
+
+                    b.Property<decimal>("AppOnlyAmount")
+                        .HasColumnType("decimal(5,2)");
+
+                    b.Property<int>("StandardID")
+                        .HasColumnType("int");
+
+                    b.HasKey("FeesId");
+
+                    b.ToTable("tblAdmissionFees");
+                });
+
             modelBuilder.Entity("NewBrainfieldNetCore.Entities.tblAdmissions", b =>
                 {
                     b.Property<int>("AdmissionId")

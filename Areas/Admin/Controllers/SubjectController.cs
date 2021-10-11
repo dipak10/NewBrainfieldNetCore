@@ -29,10 +29,7 @@ namespace NewBrainfieldNetCore.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var data = await _commonService.GetSubjects();
-            
-            
-
+            var data = await _commonService.GetSubjects();                    
             return View(data);
         }
 

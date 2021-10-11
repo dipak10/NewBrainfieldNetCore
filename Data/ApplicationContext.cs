@@ -18,10 +18,11 @@ namespace NewBrainfieldNetCore.Data
         public DbSet<tblStandard> tblStandard { get; set; }
         public DbSet<tblSubject> tblSubject { get; set; }
         public DbSet<tblAdmissions> tblAdmissions { get; set; }
+        public DbSet<tblAdmissionFees> tblAdmissionFees { get; set; }
 
         //protected override void OnModelCreating(ModelBuilder modelBuilder)
         //{
-        //    base.OnModelCreating(modelBuilder);            
+        //    base.OnModelCreating(modelBuilder);
         //    modelBuilder.ApplyConfiguration(new RoleConfiguration());
         //}
     }
