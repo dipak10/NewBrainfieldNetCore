@@ -18,6 +18,11 @@ namespace NewBrainfieldNetCore.Helpers
             CreateMap<tblSubject, SubjectDTO>();
             CreateMap<SubjectDTO, StandardDTO>();
             CreateMap<List<tblSubject>, List<SubjectDTO>>();
+
+
+            CreateMap<tblDownloadCategory, DownloadCategoryDTO>();
+            CreateMap<DownloadCategoryDTO, tblDownloadCategory>();
+           
         }
     }
 }
