@@ -26,6 +26,9 @@ namespace NewBrainfieldNetCore.Helpers
             CreateMap<DownloadsDTO, tblDownloads>();
             CreateMap<tblDownloads, DownloadsDTO>();
 
+            CreateMap<tblFaculties, FacultiesDTO>();
+            CreateMap<List<tblFaculties>, List<FacultiesDTO>>();
+
 
         }
     }

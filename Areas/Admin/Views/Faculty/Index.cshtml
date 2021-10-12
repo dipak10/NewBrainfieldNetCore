@@ -1,0 +1,101 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@model List<NewBrainfieldNetCore.Entities.tblFaculties>
+
+@{
+    Layout = "_AdminLayout";
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Faculty List</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="content">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">
+                <a class="btn btn-primary"
+                   asp-area="Admin"
+                   asp-controller="Faculty"
+                   asp-action="Add">
+                    Add
+                </a>
+            </h3>
+
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="card-body table-responsive p-0" style="height: 300px;">
+            <table class="table table-head-fixed text-nowrap">
+                <thead>
+                    <tr>
+                        <th>Faculty Name</th>
+                        <th>
+                            Subject Name
+                        </th>
+                        <th>
+                            Details
+                        </th>
+                        <th>
+                            Experience
+                        </th>
+                        <th>
+                            Photo
+                        </th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var x in Model)
+                    {
+                        <tr>
+                            <td>
+                                @x.FacultyName
+                            </td>
+                            <td>
+                                @x.SubjectName
+                            </td>
+                            <td>
+                                @x.Details
+                            </td>
+                            <td>
+                                @x.Experience
+                            </td>
+                            <td>
+                                @{ string filename = x.Photo.ToString(); }
+                                <img src="~/Images/Faculty/@filename" height="70" width="70" alt="faculty photo" />
+                            </td>
+                            <td>
+                                <a class="btn btn-danger"
+                                   asp-area="Admin"
+                                   asp-controller="Faculty"
+                                   asp-action="Delete"
+                                   asp-route-id="@x.FacultyID">
+                                    Delete
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>

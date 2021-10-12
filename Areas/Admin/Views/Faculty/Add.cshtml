@@ -1,0 +1,102 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@model NewBrainfieldNetCore.Dto.FacultiesDTO
+
+@{
+    Layout = "_AdminLayout";
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <div class="card">
+                <form asp-controller="Faculty" asp-action="Add" enctype="multipart/form-data" method="post">
+                    <div class="card-header">
+                        <h3 class="card-title">Add Faculty</h3>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="position-relative form-group">
+                            <label asp-for="FacultyName" class=""></label>
+                            <input asp-for="FacultyName" type="text" class="form-control" placeholder="Standard">
+                            <span asp-validation-for="FacultyName" class="text-danger"></span>
+                        </div>
+
+                        <div class="position-relative form-group">
+                            <label asp-for="SubjectName" class=""></label>
+                            <input asp-for="SubjectName" type="text" class="form-control" placeholder="Standard">
+                            <span asp-validation-for="SubjectName" class="text-danger"></span>
+                        </div>
+
+                        <div class="position-relative form-group">
+                            <label asp-for="Experience" class=""></label>
+                            <input asp-for="Experience" type="text" class="form-control" placeholder="Standard">
+                            <span asp-validation-for="Experience" class="text-danger"></span>
+                        </div>
+
+                        <div class="position-relative form-group">
+                            <label asp-for="Details" class=""></label>
+                            <textarea asp-for="Details" type="text" class="form-control" placeholder="Standard"> </textarea>
+                            <span asp-validation-for="Details" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="custom-file">
+                                <label asp-for="Photo" class=""></label>
+                                <input asp-for="Photo" type="file" class="custom-file-input" id="customFile" accept="image/*">
+                                <label class="custom-file-label" for="customFile">Choose file</label>
+                                <span asp-validation-for="Photo" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="card-footer">
+                        <a class="btn btn-outline-primary btn-lg pull-left"
+                           asp-area="Admin"
+                           asp-controller="Faculty"
+                           asp-action="Index">
+                            Faculty List
+                        </a>
+
+                        <input type="reset" class="btn btn-outline-light btn-lg pull-right ml-3" value="Cancel">
+
+                        <input type="submit" class="btn btn-outline-success btn-lg pull-right" value="Save">
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</section>
+
+@section scripts{
+
+    <script type="text/javascript">
+        $(".custom-file-input").on("change", function () {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+    </script>
+}

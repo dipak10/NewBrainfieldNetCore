@@ -128,7 +128,7 @@ namespace NewBrainfieldNetCore.Areas.Admin.Controllers
             return _entity.tblDownloadCategory.ToList();
         }
 
-        #region AddImage
+        #region AddFile
         private string UploadedFile(DownloadsDTO model)
         {
             string uniqueFileName = null;
@@ -147,7 +147,7 @@ namespace NewBrainfieldNetCore.Areas.Admin.Controllers
         }
         #endregion
 
-        #region RemoveImage
+        #region RemoveFile
 
         private bool RemoveFile(string name)
         {
@@ -160,6 +160,6 @@ namespace NewBrainfieldNetCore.Areas.Admin.Controllers
             return false;
         }
 
-        #endregion RemoveImage
+        #endregion RemoveFile
     }
 }

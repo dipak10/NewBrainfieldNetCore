@@ -36,6 +36,7 @@
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Tools\" />
     <Folder Include="wwwroot\Images\Blog\" />
+    <Folder Include="wwwroot\Images\Faculty\" />
     <Folder Include="wwwroot\js\" />
     <Folder Include="wwwroot\DownloadFiles\" />
   </ItemGroup>
