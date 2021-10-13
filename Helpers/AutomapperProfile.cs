@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using NewBrainfieldNetCore.Areas.Admin.Models;
 using NewBrainfieldNetCore.Dto;
 using NewBrainfieldNetCore.Entities;
 using System;
@@ -28,6 +29,8 @@ namespace NewBrainfieldNetCore.Helpers
 
             CreateMap<tblFaculties, FacultiesDTO>();
             CreateMap<List<tblFaculties>, List<FacultiesDTO>>();
+
+            CreateMap<AddStudyVideosViewModel, tblVideos>();
 
 
         }
