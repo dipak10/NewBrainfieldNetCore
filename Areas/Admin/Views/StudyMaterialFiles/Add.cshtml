@@ -1,0 +1,122 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@model NewBrainfieldNetCore.Areas.Admin.Models.AdminStudyMaterialIndexViewModel
+
+@{
+    Layout = "_AdminLayout";
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <form asp-controller="StudyMaterialFiles" asp-action="Add" enctype="multipart/form-data" method="post">
+                    <div class="card-header">
+                        <h3 class="card-title">Add Study Material</h3>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+
+                        <div class="position-relative form-group">
+                            <label asp-for="StudyCategoryName" class=""></label>
+                            <select asp-for="StudyMaterialCategoryID"
+                                    asp-items="@(new SelectList(Model.StudyMaterialCategories,"StudyMaterialCategoryID","StudyMaterialCategoryName"))"
+                                    class="form-control">
+                                <option>Please select one</option>
+                            </select>
+                            <span asp-validation-for="StudyMaterialCategoryID" class="text-danger"></span>
+                        </div>
+
+                        <div class="position-relative form-group">
+                            <label asp-for=" Title" class=""></label>
+                            <input asp-for="Title" type="text" class="form-control" placeholder="BlogTitle">
+                            <span asp-validation-for="Title" class="text-danger"></span>
+                        </div>
+
+                        <div class="position-relative form-group">
+                            <div class="custom-file-image">
+                                <label asp-for="UplodCoverPic" class=""></label>
+                                <input asp-for="UplodCoverPic" type="file" accept="image/*" />                                
+                                <span asp-validation-for="UplodCoverPic" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="position-relative form-group">
+                            <label asp-for="Description" class=""></label>
+                            <textarea asp-for="Description" type="text" class="form-control" placeholder="BlogContent" id="summernote"></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+
+                        <div class="position-relative form-group">
+                            <div class="custom-file">
+                                <label asp-for="Price" class=""></label>
+                                <input asp-for="Price" type="text" class="form-control">
+                                <span asp-validation-for="Price" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="position-relative form-group">
+                            <div class="custom-file">
+                                <label asp-for="UploadFileName" class=""></label>
+                                <input asp-for="UploadFileName" type="file" accept="zip,application/octet-stream,application/zip,application/x-zip,application/x-zip-compressed" />
+                                <span asp-validation-for="UploadFileName" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="card-footer">
+                        <a class="btn btn-outline-primary btn-lg pull-left"
+                           asp-area="Admin"
+                           asp-controller="StudyMaterialFiles"
+                           asp-action="Index">
+                            Study Material Files
+                        </a>
+
+                        <input type="reset" class="btn btn-outline-light btn-lg pull-right ml-3" value="Cancel">
+
+                        <input type="submit" class="btn btn-outline-success btn-lg pull-right" value="Save">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+@section scripts{
+
+    @*<script type="text/javascript">
+        $(".custom-file-input").on("change", function () {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+
+        $(".custom-file-input-image").on("change", function () {
+            var imageFileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label-image").addClass("selected").html(imageFileName);
+        });
+
+    </script>*@
+}

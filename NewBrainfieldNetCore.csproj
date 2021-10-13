@@ -33,12 +33,13 @@
 
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Tools\" />
     <Folder Include="wwwroot\Images\Blog\" />
     <Folder Include="wwwroot\Images\Faculty\" />
+    <Folder Include="wwwroot\Images\StudyMaterialFileCoverPic\" />
     <Folder Include="wwwroot\js\" />
     <Folder Include="wwwroot\DownloadFiles\" />
+    <Folder Include="wwwroot\StudyMaterialFiles\" />
   </ItemGroup>
 
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">

@@ -1,0 +1,87 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@model List<NewBrainfieldNetCore.Areas.Admin.Models.AdminStudyMaterialIndexViewModel>
+
+@{
+    Layout = "_AdminLayout";
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Blogs List</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="content">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">
+                <a class="btn btn-primary"
+                   asp-area="Admin"
+                   asp-controller="StudyMaterialFiles"
+                   asp-action="Add">
+                    Add
+                </a>
+            </h3>
+
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="card-body table-responsive p-0" style="height: 300px;">
+            <table class="table table-head-fixed text-nowrap">
+                <thead>
+                    <tr>
+                        <th>Download</th>
+                        <th>Title</th>
+                        <th>Study Material Category Name</th>
+                        <th>Price</th>
+                        <th>Description</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var x in Model)
+                    {
+                        <tr>
+                            <td>
+                                @{ string fileName = x.DisplayFileName.ToString(); }
+                                <a href="~/DownloadFiles/@fileName" style="height:100px; width:100px;">                                    
+                                    <i class="fas fa-download"></i>
+                                </a>
+                            </td>
+                            <td>@x.Title</td>
+                            <td>@x.StudyCategoryName</td>
+                            <td>@x.Price</td>
+                            <td>@x.Description</td>
+                            <td>                                
+                                <a class="btn btn-danger"
+                                   asp-area="Admin"
+                                   asp-controller="StudyMaterialFiles"
+                                   asp-action="Delete"
+                                   asp-route-id="@x.StudyMaterialId">
+                                    Delete
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
