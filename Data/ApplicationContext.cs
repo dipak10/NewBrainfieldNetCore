@@ -28,6 +28,7 @@ namespace NewBrainfieldNetCore.Data
         public DbSet<tblVideos> tblVideos { get; set; }
         public DbSet<tblGallery> tblGallery { get; set; }
         public DbSet<tblTestimonials> tblTestimonials { get; set; }
+        public DbSet<tblExamCategory> tblExamCategory { get; set; }
 
         //protected override void OnModelCreating(ModelBuilder modelBuilder)
         //{

@@ -32,6 +32,8 @@ namespace NewBrainfieldNetCore.Helpers
 
             CreateMap<AddStudyVideosViewModel, tblVideos>();
 
+            CreateMap<tblExamCategory, ExamCategoryDTO>();
+            CreateMap<ExamCategoryDTO, tblExamCategory>();
 
         }
     }
