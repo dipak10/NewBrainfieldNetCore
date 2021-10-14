@@ -12,5 +12,7 @@ namespace NewBrainfieldNetCore.Services.Interfaces
         Task<List<StandardDTO>> GetStandards();
 
         Task<List<tblSubject>> GetSubjects();
+
+        Task<List<tblChapters>> GetChapters();
     }
 }

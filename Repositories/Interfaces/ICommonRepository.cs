@@ -12,5 +12,7 @@ namespace NewBrainfieldNetCore.Repositories.Interfaces
 
         Task<List<tblSubject>> GetSubjects();
 
+        Task<List<tblChapters>> GetChapters();
+
     }
 }

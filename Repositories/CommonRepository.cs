@@ -18,6 +18,11 @@ namespace NewBrainfieldNetCore.Repositories
             _context = context;
         }
 
+        public async Task<List<tblChapters>> GetChapters()
+        {
+            return await _context.tblChapters.Include(x => x.Subjects).ThenInclude(x => x.Standards).ToListAsync();
+        }
+
         public async Task<List<tblStandard>> GetStandards()
         {
             return await _context.tblStandard.OrderBy(x => x.StandardID).ToListAsync();

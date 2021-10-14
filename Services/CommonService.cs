@@ -27,6 +27,11 @@ namespace NewBrainfieldNetCore.Services
 
         }
 
+        public async Task<List<tblChapters>> GetChapters()
+        {
+            return await _commonRepository.GetChapters();
+        }
+
         public async Task<List<StandardDTO>> GetStandards()
         {
             var standards = await _commonRepository.GetStandards();
@@ -35,13 +40,7 @@ namespace NewBrainfieldNetCore.Services
 
         public async Task<List<tblSubject>> GetSubjects()
         {
-            
-            List<tblSubject> data = await _commonRepository.GetSubjects();
-
-
-            //test commit
-            //tblSubject sa = null;           
-            return data;
+            return await _commonRepository.GetSubjects();
         }
     }
 }
