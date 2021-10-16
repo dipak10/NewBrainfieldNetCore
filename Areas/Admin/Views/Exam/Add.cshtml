@@ -1,6 +1,6 @@
 ﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
-@model NewBrainfieldNetCore.Dto.ProductsDTO
+@model NewBrainfieldNetCore.Dto.ExamMasterDTO
 
 @{
     Layout = "_AdminLayout";
@@ -37,9 +37,9 @@
                     </div>
                     <div class="card-body">
                         <div class="position-relative form-group">
-                            <label asp-for="ProductName" class=""></label>
-                            <input asp-for="ProductName" type="text" class="form-control" placeholder="Standard">
-                            <span asp-validation-for="ProductName" class="text-danger"></span>
+                            <label asp-for="ExamName" class=""></label>
+                            <input asp-for="ExamName" type="text" class="form-control" placeholder="ExamName">
+                            <span asp-validation-for="ExamName" class="text-danger"></span>
                         </div>
 
                         <div class="position-relative form-group">
@@ -73,9 +73,9 @@
                         </div>
 
                         <div class="position-relative form-group">
-                            <label asp-for="Duration" class=""></label>
-                            <input asp-for="Duration" type="text" class="form-control" placeholder="Duration">
-                            <span asp-validation-for="Duration" class="text-danger"></span>
+                            <label asp-for="TimeDuration" class=""></label>
+                            <input asp-for="TimeDuration" type="text" class="form-control" placeholder="Duration">
+                            <span asp-validation-for="TimeDuration" class="text-danger"></span>
                         </div>
 
                         <div class="position-relative form-group">
@@ -118,16 +118,16 @@
                         </div>
 
                         <div class="position-relative form-group">
-                            <div class="custom-control pl-0">                                
-                                <input asp-for="IsFeature" id="chkToggle1" type="checkbox" data-toggle="toggle" data-style="slow" checked>
+                            <div class="custom-control pl-0">
+                                <input asp-for="IsFeatured" id="chkToggle1" type="checkbox" data-toggle="toggle" data-style="slow" checked>
                                 <label>Turn on to make it feature</label>
-                                <span asp-validation-for="IsFeature" class="text-danger"></span>
+                                <span asp-validation-for="IsFeatured" class="text-danger"></span>
                             </div>
                         </div>
-                       
+
                         <div class="position-relative form-group">
                             <div class="custom-control pl-0">
-                                <input asp-for="IsFeature" id="chkToggle2" type="checkbox" data-toggle="toggle" data-style="slow" checked>
+                                <input asp-for="IsActive" id="chkToggle2" type="checkbox" data-toggle="toggle" data-style="slow" checked>
                                 <label>Turn on to display to the user</label>
                                 <span asp-validation-for="IsActive" class="text-danger"></span>
                             </div>

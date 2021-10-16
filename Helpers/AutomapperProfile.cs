@@ -35,6 +35,7 @@ namespace NewBrainfieldNetCore.Helpers
             CreateMap<tblExamCategory, ExamCategoryDTO>();
             CreateMap<ExamCategoryDTO, tblExamCategory>();
 
+            CreateMap<ExamMasterDTO, tblExamMaster>();
         }
     }
 }
