@@ -3,11 +3,14 @@ using AutoMapper;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using NewBrainfieldNetCore.Areas.Admin.Models;
 using NewBrainfieldNetCore.Data;
 using NewBrainfieldNetCore.Dto;
 using NewBrainfieldNetCore.Entities;
 using NewBrainfieldNetCore.Helpers;
+using NewBrainfieldNetCore.Models;
 using NewBrainfieldNetCore.Services.Interfaces;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -37,9 +40,34 @@ namespace NewBrainfieldNetCore.Areas.Admin.Controllers
             this.hostEnvironment = hostEnvironment;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            List<AdminExamsIndexViewModel> examdata = await (from x in applicationContext.tblExamMaster
+                                                             join y in applicationContext.tblExamCategory on
+                                                             x.ExamCategoryID equals y.ExamCategoryID
+                                                             join z in applicationContext.tblExamSubject on
+                                                             x.ExamID equals z.ExamID
+                                                             join p in applicationContext.tblSubject on
+                                                             z.SubjectID equals p.SubjectID
+                                                             join q in applicationContext.tblStandard on
+                                                             x.StandardID equals q.StandardID
+                                                             select new AdminExamsIndexViewModel
+                                                             {
+                                                                 ExamID = x.ExamID,
+                                                                 ExamName = x.ExamName,
+                                                                 MarkPrice = x.MarkPrice,
+                                                                 SellPrice = x.SellPrice,
+                                                                 TimeDuration = x.TimeDuration,
+                                                                 Repetation = x.Repetation,
+                                                                 Notes = x.Notes,
+                                                                 StandardName = q.StandardName,
+                                                                 SubjectName = p.SubjectName,
+                                                                 CategoryName = y.ExamCategoryName,
+                                                                 IsFeatured = x.IsFeatured,
+                                                                 CreatedOn = x.CreatedOn
+                                                             }).Where(x => x.IsDeleted == false).ToListAsync();
+
+            return View(examdata);
         }
 
         [HttpGet]
@@ -77,7 +105,6 @@ namespace NewBrainfieldNetCore.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
-
         private async Task InitData()
         {
             ProductsDTO.Standards = await commonService.GetStandards();
@@ -101,5 +128,23 @@ namespace NewBrainfieldNetCore.Areas.Admin.Controllers
             }
             return uniqueFileName;
         }
+
+        public async Task<IActionResult> Delete(int Id)
+        {
+            if (Id > 0)
+            {
+                var data = await applicationContext.tblExamMaster.FirstOrDefaultAsync(x => x.ExamID == Id);
+                if (data != null)
+                {
+                    data.IsDeleted = true;
+                    await applicationContext.SaveChangesAsync();
+                    notyf.Success("Exam Deleted Successfully");
+                    return RedirectToAction("Index");
+                }
+            }
+            notyf.Error("Error Occured while deleting");
+            return RedirectToAction("Index");
+        }
+
     }
 }

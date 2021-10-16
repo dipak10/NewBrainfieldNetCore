@@ -9,8 +9,13 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link href="~/Admin/plugins/fontawesome-free/css/all.css" rel="stylesheet" />
-    <!-- Theme style -->    
+    <!-- Theme style -->
     <link href="~/Admin/dist/css/adminlte.css" rel="stylesheet" />
+    <!-- jQuery -->
+    <script src="~/Admin/plugins/jquery/jquery.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="~/Admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+
 </head>
 <body class="hold-transition sidebar-mini">
     <!-- Site wrapper -->
@@ -846,17 +851,12 @@
         </aside>
         <!-- /.control-sidebar -->
     </div>
-    <!-- ./wrapper -->
-    <!-- jQuery -->
-    <script src="~/Admin/plugins/jquery/jquery.js"></script>
-    <!-- Bootstrap 4 -->
-    <script src="~/Admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- ./wrapper -->   
     <!-- summernote -->
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
     <!-- AdminLTE App -->
     <script src="~/Admin/dist/js/adminlte.js"></script>
     <script src="~/js/master.js"></script>
-
     @await Component.InvokeAsync("Notyf")
     @RenderSection("Scripts", required: false)
 </body>

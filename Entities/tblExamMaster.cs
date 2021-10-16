@@ -24,6 +24,8 @@ namespace NewBrainfieldNetCore.Entities
         public int ExamCategoryID { get; set; }
         public decimal AppOnlyDiscount { get; set; }
         public bool AppOnlyDisc { get; set; }
+        public bool IsDeleted { get; set; }
+        public bool IsVisible { get; set; }
         public DateTime CreatedOn { get; set; }     
     }
 }
