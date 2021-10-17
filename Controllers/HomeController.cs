@@ -16,10 +16,9 @@ namespace NewBrainfieldNetCore.Controllers
             _logger = logger;
             _notyf = notyf;
         }
-
+        
         public IActionResult Index()
-        {
-            _notyf.Success("dssdsdsd");
+        {            
             return View();
         }
 

@@ -1,0 +1,51 @@
+﻿@model NewBrainfieldNetCore.Viewmodels.StudentExamViewModels.CategorywiseExamListViewModel
+@{
+    Layout = "_FrontendLayout";
+}
+
+<div class="page-title mt-30">
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="container">
+                <h3>@Model.CategoryName</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<section class="courses-area ptb-100">
+    <div class="container">
+        <div class="row">
+            @foreach (var exam in Model.Exams)
+            {
+                <div class="col-lg-4 col-md-6">
+                    <div class="courses-item">
+                        <div class="courses-img">
+                            <img src="~/Images/ExamCoverPic/@exam.ImageName" alt="@exam.ExamName" />
+                        </div>
+                        <div class="courses-content">
+                            <h3>
+                                <a asp-controller="Exams" asp-action="SingleExam" asp-route-id="@exam.ExamName">
+                                    @exam.ExamName
+                                </a>
+                            </h3>
+                            <p class="text-truncate">@exam.Description</p>
+                        </div>
+                        <div class="courses-content-bottom">
+                            <h4 class="price">
+                                <span>₹ @exam.MarkPrice</span>
+                                ₹ @exam.SellPrice
+                            </h4>
+                            <h4>
+                                <a class="btn btn-primary" asp-controller="Exams" asp-action="SingleExam" asp-route-id="@exam.ExamName">
+                                    Exam Details
+                                </a>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
