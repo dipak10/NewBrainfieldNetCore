@@ -1,0 +1,125 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@model NewBrainfieldNetCore.Areas.Admin.Models.AddPackageViewModel
+
+@{
+    Layout = "_AdminLayout";
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <form asp-controller="Packages" asp-action="Add" method="post" enctype="multipart/form-data">
+                    <div class="card-header">
+                        <h3 class="card-title">Add Package</h3>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="position-relative form-group">
+                            <label asp-for="PackageName" class=""></label>
+                            <input asp-for="PackageName" type="text" class="form-control" placeholder="PackageName">
+                            <span asp-validation-for="PackageName" class="text-danger"></span>
+                        </div>
+
+                        <div class="position-relative form-group">
+                            <label asp-for="ExamMasters" class=""></label>
+                            <select class="form-control" asp-for="SelectedExams" asp-items="Model.ExamMasters" id="Exams"></select>
+                            <span asp-validation-for="ExamMasters" class="text-danger"></span>
+                        </div>
+
+                        <div class="position-relative form-group">
+                            <label asp-for="MarkPrice" class=""></label>
+                            <input asp-for="MarkPrice" type="text" class="form-control" placeholder="Mark Price" readonly>
+                            <span asp-validation-for="MarkPrice" class="text-danger"></span>
+                        </div>
+
+                        <div class="position-relative form-group">
+                            <label asp-for="SellPrice" class=""></label>
+                            <input asp-for="SellPrice" type="text" class="form-control" placeholder="Sell Price">
+                            <span asp-validation-for="SellPrice" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="custom-file">
+                                <label asp-for="Image" class=""></label>
+                                <input asp-for="Image" type="file" class="custom-file-input" id="customFile" accept="image/*">
+                                <label class="custom-file-label" for="customFile">Choose Cover Image</label>
+                                <span asp-validation-for="Image" class="text-danger"></span>
+                            </div>
+                        </div>
+
+
+                        <div class="position-relative form-group">
+                            <label asp-for="Description" class=""></label>
+                            <textarea asp-for="Description" type="text" class="form-control" placeholder="Description"></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+
+                    </div>
+
+                    <div class="card-footer">
+                        <a class="btn btn-outline-primary btn-lg pull-left"
+                           asp-area="Admin"
+                           asp-controller="Packages"
+                           asp-action="Index">
+                            Fees List
+                        </a>
+
+                        <input type="reset" class="btn btn-outline-light btn-lg pull-right ml-3" value="Cancel">
+
+                        <input type="submit" class="btn btn-outline-success btn-lg pull-right" value="Save">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $("#Exams").focusout(function () {
+                var selected = [];
+
+                $.each($("#Exams option:selected"), function () {
+                    selected.push($(this).val());
+                });
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Admin/Packages/GetPrice",
+                    data: {
+                        id: selected
+                    },
+                    success: function (data) {
+                        console.log(data);
+                        $("#MarkPrice").val(data);
+                    },
+                    error: function (data) {
+                    }
+                });
+            });
+        });
+    </script>
+}
