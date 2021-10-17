@@ -20,6 +20,6 @@ namespace NewBrainfieldNetCore.Areas.Admin.Models
         public bool IsFeatured { get; set; }
         public bool IsDeleted { get; set; }
         public string CategoryName { get; set; }
-        public DateTime CreatedOn { get; set; }
+        public DateTime CreatedOn { get; set; }        
     }
 }

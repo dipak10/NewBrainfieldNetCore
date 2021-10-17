@@ -65,7 +65,7 @@ namespace NewBrainfieldNetCore.Areas.Admin.Controllers
                                                                  CategoryName = y.ExamCategoryName,
                                                                  IsFeatured = x.IsFeatured,
                                                                  CreatedOn = x.CreatedOn
-                                                             }).Where(x => x.IsDeleted == false).ToListAsync();
+                                                             }).ToListAsync();
 
             return View(examdata);
         }

@@ -56,7 +56,9 @@
                         <th>Standard</th>
                         <th>Subject</th>
                         <th>IsFeatured</th>
+                        <th>IsDeleted</th>
                         <th>CreatedOn</th>
+                        <th>Delete</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -72,6 +74,16 @@
                             <td>@x.StandardName</td>
                             <td>@x.SubjectName</td>
                             <td>@x.IsFeatured</td>
+                            <td>
+                                @if (x.IsDeleted)
+                                {
+                                    <span class="badge bg-danger float-right">Deleted</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-primary float-right">Alive</span>
+                                }
+                            </td>
                             <td>@x.CreatedOn.ToShortDateString()</td>
                             <td>
                                 <a class="btn btn-danger"

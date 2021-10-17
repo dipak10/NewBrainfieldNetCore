@@ -32,7 +32,8 @@ namespace NewBrainfieldNetCore.Data
         public DbSet<tblChapters> tblChapters { get; set; }
         public DbSet<tblExamMaster> tblExamMaster { get; set; }
         public DbSet<tblExamSubject> tblExamSubject { get; set; }
-
+        public DbSet<tblPackageMaster> tblPackageMaster { get; set; }
+        public DbSet<tblPackageExam> tblPackageExam { get; set; }
 
         //protected override void OnModelCreating(ModelBuilder modelBuilder)
         //{
