@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NewBrainfieldNetCore.Data;
 using NewBrainfieldNetCore.Entities;
-using NewBrainfieldNetCore.Services.Interfaces;
+using NewBrainfieldNetCore.Viewmodels;
 using NewBrainfieldNetCore.Viewmodels.StudentExamViewModels;
 using System;
 using System.Collections.Generic;
@@ -19,6 +19,8 @@ namespace NewBrainfieldNetCore.Controllers
         private readonly ApplicationContext entity;
 
         private readonly INotyfService notyf;
+
+        public AddToCartViewModel AddToCartViewModel { get; set; }
 
         public ExamsController(ApplicationContext entity, INotyfService notyf)
         {
@@ -47,10 +49,56 @@ namespace NewBrainfieldNetCore.Controllers
         }
 
         [HttpGet]
-        public IActionResult About()
+        [Route("Exam/{id}")]
+        public async Task<IActionResult> SingleProduct(int id)
         {
-            return View();
+            if (id > 0)
+            {
+                try
+                {
+                    var getProduct = await (from x in entity.tblExamMaster
+                                            join y in entity.tblExamCategory
+                                            on x.ExamCategoryID equals y.ExamCategoryID
+                                            join z in entity.tblExamSubject
+                                            on x.ExamID equals z.ExamID
+                                            join a in entity.tblSubject
+                                            on z.SubjectID equals a.SubjectID
+                                            select new SingleProductViewModel
+                                            {
+                                                SingleExamViewModel = new SingleExamViewModel
+                                                {
+                                                    ExamID = x.ExamID,
+                                                    ExamName = x.ExamName,
+                                                    CategoryName = y.ExamCategoryName,
+                                                    DifficultyLevel = "Easy, Medium, Hard",
+                                                    Description = x.Description,
+                                                    Duration = x.TimeDuration,
+                                                    SellPrice = x.SellPrice,
+                                                    Students = 2000,
+                                                    Subject = a.SubjectName,
+                                                    ImageName = x.ImageName,
+                                                },
+                                                AddToCartViewModel = new Viewmodels.AddToCartViewModel
+                                                {
+                                                    ProductID = x.ExamID,
+                                                    Type = "Exam"
+                                                }
+                                            }).Where(x => x.SingleExamViewModel.ExamID == id).FirstOrDefaultAsync();
 
-        }
+                    if (getProduct == null) return RedirectToAction("Index", "Home");
+
+                    return View(getProduct);
+                }
+                catch (Exception e)
+                {
+                    notyf.Error("Some error occured");
+                }
+                finally
+                {
+                    Dispose();
+                }
+            }
+            return RedirectToAction("Index", "Home");
+        }        
     }
 }

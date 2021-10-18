@@ -1,0 +1,156 @@
+﻿@model NewBrainfieldNetCore.Viewmodels.SingleProductViewModel
+@{
+    Layout = "_FrontendLayout";
+}
+
+<script type='text/javascript'
+        src='https://platform-api.sharethis.com/js/sharethis.js#property=616d00afe35b180013fb2922&product=inline-share-buttons'
+        async='async'>
+</script>
+
+<style>
+    .img-header {
+        height: 75px;
+        width: 90px !important;
+    }
+
+    .course-details-tabs #tabs {
+        text-align: left;
+    }
+</style>
+
+<div class="page-title mt-30">
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="container">
+                <h3>Exam Details</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="course-details-area ptb-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-12">
+                <div class="courses-details">
+                    <div class="courses-details-meta">
+                        <ul>
+                            <li>
+                                <div class="teacher-img">
+                                    <img src="~/icons/test.png" class="img-header" alt="teacher" />
+                                </div>
+                                Exam: @Model.SingleExamViewModel.ExamName
+                            </li>
+                            <li>
+                                Price: ₹ @Model.SingleExamViewModel.SellPrice
+                            </li>
+                        </ul>
+                        <form asp-action="AddToCart" asp-controller="Cart" method="post">
+                            <input asp-for="@Model.AddToCartViewModel.Type" type="hidden" />
+                            <input asp-for="@Model.AddToCartViewModel.ProductID" type="hidden" id="ProductID" />
+                            <div class="apply-btn">
+                                <button type="submit" class="btn btn-primary">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="courses-details-img">
+                        <img src="~/Images/ExamCoverPic/@Model.SingleExamViewModel.ImageName" alt="courses-details">
+                    </div>
+                    <h3>@Model.SingleExamViewModel.ExamName</h3>
+                    <div class="course-details-tabs">
+                        <ul id="tabs">
+                            <li class="active" id="tab_1">Description</li>
+                            <li class="inactive" id="tab_2">Leaderboard</li>
+                        </ul>
+                        <div class="content show" id="tab_1_content">
+                            <h4 class="title">Course Details</h4>
+                            <p>@Model.SingleExamViewModel.Description</p>
+                            <div class="certification">
+                                <h4 class="title">Certification</h4>
+                                <p class="mb-0">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
+                            </div>
+                        </div>
+                        <div class="content" id="tab_2_content">
+                            <div class="accordion" id="accordionEx" role="tablist" aria-multiselectable="true">
+                                <div class="card">
+                                    <div class="card-header" role="tab" id="headingOne">
+                                        <a data-bs-toggle="collapse" data-bs-parent="#accordionEx" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                            <h5 class="mb-0">
+                                                1. Welcome to the Courses <span><i class="icofont-rounded-down"></i></span>
+                                            </h5>
+                                        </a>
+                                    </div>
+                                    <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne" data-bs-parent="#accordionEx">
+                                        <div class="card-body">
+                                            <ul>
+                                                <li>
+                                                    <i class="icofont-ui-play"></i> Lecture 1.1
+                                                    <span><a href="#">What is Python?</a></span>
+                                                    <span class="duration"><i class="icofont-clock-time"></i> 50 min</span>
+                                                    <a href="#" class="preview">Preview</a>
+                                                </li>
+                                                <li>
+                                                    <i class="icofont-ui-play"></i> Lecture 1.1
+                                                    <span><a href="#">What is Python?</a></span>
+                                                    <span class="duration"><i class="icofont-clock-time"></i> 50 min</span>
+                                                    <a href="#" class="preview">Preview</a>
+                                                </li>
+                                                <li>
+                                                    <i class="icofont-ui-play"></i> Lecture 1.1
+                                                    <span><a href="#">What is Python?</a></span>
+                                                    <span class="duration"><i class="icofont-clock-time"></i> 50 min</span>
+                                                    <a href="#" class="preview">Preview</a>
+                                                </li>
+                                                <li>
+                                                    <i class="icofont-ui-play"></i> Lecture 1.1
+                                                    <span><a href="#">What is Python?</a></span>
+                                                    <span class="duration"><i class="icofont-clock-time"></i> 50 min</span>
+                                                    <a href="#" class="preview">Preview</a>
+                                                </li>
+                                                <li>
+                                                    <i class="icofont-ui-play"></i> Lecture 1.1
+                                                    <span><a href="#">What is Python?</a></span>
+                                                    <span class="duration"><i class="icofont-clock-time"></i> 50 min</span>
+                                                    <a href="#" class="preview">Preview</a>
+                                                </li>
+                                                <li>
+                                                    <i class="icofont-ui-play"></i> Lecture 1.1
+                                                    <span><a href="#">What is Python?</a></span>
+                                                    <span class="duration"><i class="icofont-clock-time"></i> 50 min</span>
+                                                    <a href="#" class="preview">Preview</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-12">
+                <div class="side-bar mb-0">
+                    <div class="single-widget features-box">
+                        <h3 class="title">Course Features</h3>
+                        <ul>
+                            <li><i class="fa fa-list-alt" aria-hidden="true"></i> Category <span>@Model.SingleExamViewModel.CategoryName</span></li>
+                            <li><i class="icofont-clock-time"></i> Duration <span>@Model.SingleExamViewModel.Duration Minutes</span></li>
+                            <li><i class="icofont-book"></i> Subject <span>@Model.SingleExamViewModel.Subject</span></li>
+                            <li><i class="icofont-caret-up"></i> Difficulty Level <span>All level</span></li>
+                            <li><i class="icofont-users-social"></i> Students <span>2000+</span></li>
+                            <li><i class="icofont-certificate-alt-1"></i> Certificate <span>Yes</span></li>
+                            <li><i class="icofont-checked"></i> Assessments <span>Yes</span></li>
+                        </ul>
+                    </div>
+                    <div class="single-widget share-boxes">
+                        <h3 class="title">Share Courses</h3>
+                        <div class="sharethis-inline-share-buttons"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
