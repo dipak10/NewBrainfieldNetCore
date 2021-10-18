@@ -1,0 +1,81 @@
+﻿@model IEnumerable<NewBrainfieldNetCore.Viewmodels.Cart.CartViewModel>
+
+@{
+    Layout = "_FrontendLayout";
+}
+
+<div class="page-title mt-30">
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="container">
+                <h3>Cart</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="cart-area ptb-100">
+    <div class="container">
+        <form asp-action="ProceedPayment" asp-controller="Cart" method="post">
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+                    <div class="cart-table table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Product Name</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var x in Model)
+                                {
+                                    <tr>
+                                        <td>@x.ProductName</td>
+                                        <td>₹ @x.SellPrice</td>
+                                        <td>
+                                            <a asp-action="RemoveFromCart"
+                                               asp-controller="Cart"
+                                               asp-route-id="@x.UserCartId"
+                                               class="remove">
+                                                <i class="icofont-close">
+                                                </i>
+                                            </a>
+                                        </td>
+                                    </tr>
+
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-12">
+                    <div class="cart-buttons">
+                        <a asp-action="Index" asp-controller="Home" class="btn btn-primary">
+                            Continue Shopping
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12">
+                    <div class="cart-total">
+                        <h3>Cart Total</h3>
+                        <div class="cart-total-table table-responsive">
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td>Total</td>
+                                        <td>₹ @NewBrainfieldNetCore.Helpers.GlobalVariables.GrandTotal</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="proceed-to-checkout">
+                            <button type="submit" class="btn btn-primary">Proceed To Checkout</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>

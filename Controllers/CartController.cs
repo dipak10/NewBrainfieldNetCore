@@ -74,10 +74,17 @@ namespace NewBrainfieldNetCore.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        
+
         public async Task<IActionResult> RemoveFromCart(int id)
         {
-            return View();
+            var getdata = await entity.tblUserCart.Where(x => x.UserCartID == id).FirstOrDefaultAsync();
+            if (getdata != null)
+            {
+                entity.tblUserCart.Remove(getdata);
+                await entity.SaveChangesAsync();
+                return RedirectToAction("MyCart", "UserAccount");
+            }
+            return RedirectToAction("Index", "Home");
         }
     }
 }
