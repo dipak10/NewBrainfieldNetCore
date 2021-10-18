@@ -1,7 +1,10 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using NewBrainfieldNetCore.Data;
+using NewBrainfieldNetCore.Entities;
+using NewBrainfieldNetCore.Helpers;
 using NewBrainfieldNetCore.Viewmodels;
 using System;
 using System.Collections.Generic;
@@ -16,6 +19,9 @@ namespace NewBrainfieldNetCore.Controllers
         private readonly ApplicationContext entity;
         private readonly INotyfService notyf;
 
+        public string Type { get; set; }
+        public int ProductId { get; set; }
+
         public CartController(ApplicationContext entity, INotyfService notyf)
         {
             this.entity = entity;
@@ -24,20 +30,53 @@ namespace NewBrainfieldNetCore.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult AddToCart(SingleProductViewModel viewModel)
+        public async Task<IActionResult> AddToCart(SingleProductViewModel viewModel)
         {
+            Type = viewModel.AddToCartViewModel.Type;
+            ProductId = viewModel.AddToCartViewModel.ProductID;
+
             try
             {
+                if (!string.IsNullOrEmpty(viewModel.AddToCartViewModel.Type))
+                {
+                    GlobalVariables.ProductType = Type;
+                    GlobalVariables.ProductId = ProductId;
+                }
 
+                var userid = Convert.ToInt32(1);
+                var ucart = await entity.tblUserCart.Where(ca => ca.UserID == userid && ca.ExamID == ProductId && ca.Type == Type).FirstOrDefaultAsync();
+                if (ucart != null)
+                {
+                    notyf.Information("There is already a product in cart");
+                    return RedirectToAction("MyCart", "UserAccount");
+                }
+                else
+                {
+                    tblUserCart u = new tblUserCart();
+                    u.ExamID = ProductId;
+                    u.UserID = userid;
+                    u.Type = GlobalVariables.ProductType;
+                    u.DateAdded = DateTime.Now;
+                    await entity.tblUserCart.AddAsync(u);
+                    await entity.SaveChangesAsync();
+                    notyf.Success("Product Added to cart successfully");
+                    return RedirectToAction("MyCart", "UserAccount");
+                }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-
+                notyf.Error("Error While Adding Product to cart");
             }
             finally
             {
                 Dispose();
             }
+            return RedirectToAction("Index", "Home");
+        }
+
+        
+        public async Task<IActionResult> RemoveFromCart(int id)
+        {
             return View();
         }
     }
