@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace NewBrainfieldNetCore.Entities
 {
     public class tblQuestionMaster
     {
+        [Key]
         public int QuestionMasterID { get; set; }
         public int StandardID { get; set; }
         public int SubjectID { get; set; }

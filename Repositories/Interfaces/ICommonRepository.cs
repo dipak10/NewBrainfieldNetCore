@@ -14,5 +14,7 @@ namespace NewBrainfieldNetCore.Repositories.Interfaces
 
         Task<List<tblChapters>> GetChapters();
 
+        Task<List<tblExamMaster>> GetExams();
+
     }
 }

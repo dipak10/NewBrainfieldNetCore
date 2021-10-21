@@ -14,5 +14,7 @@ namespace NewBrainfieldNetCore.Services.Interfaces
         Task<List<tblSubject>> GetSubjects();
 
         Task<List<tblChapters>> GetChapters();
+
+        Task<List<tblExamMaster>> GetExams();
     }
 }

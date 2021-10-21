@@ -42,5 +42,11 @@ namespace NewBrainfieldNetCore.Services
         {
             return await _commonRepository.GetSubjects();
         }
+
+        public async Task<List<tblExamMaster>> GetExams()
+        {
+            return await _commonRepository.GetExams();
+
+        }
     }
 }

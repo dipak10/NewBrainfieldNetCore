@@ -32,5 +32,11 @@ namespace NewBrainfieldNetCore.Repositories
         {
             return await _context.tblSubject.Include(x => x.Standards).ToListAsync();
         }
+
+        public async Task<List<tblExamMaster>> GetExams()
+        {
+            return await _context.tblExamMaster.ToListAsync();
+
+        }
     }
 }
