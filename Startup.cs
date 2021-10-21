@@ -48,7 +48,7 @@ namespace NewBrainfieldNetCore
 
             services.AddMvc(options => options.EnableEndpointRouting = false);
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddNewtonsoftJson();
 
             services.AddRazorPages();
 

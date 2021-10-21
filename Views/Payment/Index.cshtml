@@ -1,0 +1,59 @@
+﻿@model NewBrainfieldNetCore.Common.Requests.Root
+
+@{
+    Layout = null;
+}
+
+<html>
+
+<head>
+    <title>Blink Checkout Demo</title>
+</head>
+
+<body>
+    <div id="paytm-checkoutjs"></div>
+    <script>
+        var bolla = '@Html.Raw(Json.Serialize(Model))';
+        var model = JSON.parse(bolla);
+        var orderId = model.orderId;
+        var txnToken = model.body.txnToken;
+        var amount = model.amount;
+
+        function onScriptLoad() {
+            var config = {
+                "root": "",
+                "flow": "DEFAULT",
+                "data": {
+                    "orderId": orderId /* update order id */,
+                    "token": txnToken /* update token value */,
+                    "tokenType": "TXN_TOKEN",
+                    "amount": amount /* update amount */
+                },
+                "handler": {
+                    "notifyMerchant": function (eventName, data) {
+                        console.log("notifyMerchant handler function called");
+                        console.log("eventName => ", eventName);
+                        console.log("data => ", data);
+                    }
+                }
+            };
+
+            if (window.Paytm && window.Paytm.CheckoutJS) {
+                window.Paytm.CheckoutJS.onLoad(function excecuteAfterCompleteLoad() {
+                    // initialze configuration using init method
+                    window.Paytm.CheckoutJS.init(config).then(function onSuccess() {
+                        // after successfully update configuration invoke checkoutjs
+                        window.Paytm.CheckoutJS.invoke();
+                    }).catch(function onError(error) {
+                        console.log("error => ", error);
+                    });
+                });
+            }
+        }
+    </script>
+    <script type="application/javascript" crossorigin="anonymous"
+            src="https://securegw-stage.paytm.in/merchantpgpui/checkoutjs/merchants/szIlUC39812499765695.js"
+            onload="onScriptLoad();">
+    </script>
+</body>
+</html>

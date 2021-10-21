@@ -86,5 +86,12 @@ namespace NewBrainfieldNetCore.Controllers
             }
             return RedirectToAction("Index", "Home");
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ProceedPayment()
+        {
+            return RedirectToAction("Index", "Payment");            
+        }
     }
 }
