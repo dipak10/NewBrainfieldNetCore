@@ -3,15 +3,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using NewBrainfieldNetCore.Common;
-using NewBrainfieldNetCore.Helpers;
 using NewBrainfieldNetCore.Services.Interfaces;
 using NewBrainfieldNetCore.Viewmodels.ForgotPassword;
 using NewBrainfieldNetCore.Viewmodels.Login;
 using NewBrainfieldNetCore.Viewmodels.ResetPassword;
 using NewBrainfieldNetCore.Viewmodels.SignUp;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace NewBrainfieldNetCore.Controllers
@@ -43,22 +40,6 @@ namespace NewBrainfieldNetCore.Controllers
             _commonService = commonService;
         }
 
-        public async Task<IActionResult> Demo()
-        {
-           
-
-            return View();
-        }
-
-        #region Helper
-
-        private void SetSessionAndGlobalVariables()
-        {
-
-        }
-
-        #endregion
-
         #region Login
 
         public IActionResult Login()
@@ -73,7 +54,7 @@ namespace NewBrainfieldNetCore.Controllers
             {
                 var login = await _loginService.Login(model);
                 if (login.IsSuccess)
-                {                
+                {
                     return RedirectToAction("Index", "Home");
                 }
 

@@ -27,11 +27,10 @@ namespace NewBrainfieldNetCore.Controllers
         {
             try
             {
-                var data = await _commonService.GetCurrentUser();
-                User
+                var data = await _commonService.GetCurrentUser();                
                 if (data != null)
                 {
-                    _logger.LogInformation("Data found");
+                    Helpers.GlobalVariables.UserId = data.UserID;                    
                 }
             }
             catch(Exception e)

@@ -278,7 +278,7 @@ namespace NewBrainfieldNetCore.Controllers
 
         private void GetUser()
         {
-            UserId = 1;
+            UserId = GlobalVariables.UserId;
         }
 
         private void SetEnvironmentValues()

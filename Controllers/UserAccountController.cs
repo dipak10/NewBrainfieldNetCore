@@ -30,9 +30,7 @@ namespace NewBrainfieldNetCore.Controllers
         public async Task<IActionResult> MyCart()
         {
             try
-            {
-                GlobalVariables.UserId = 1;
-
+            {               
                 QueryHelper QueryHelper = new QueryHelper(applicationContext: entity);
           
                 IEnumerable<CartViewModel> carts = await QueryHelper.GetCart();

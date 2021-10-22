@@ -1,4 +1,5 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -29,7 +30,7 @@ namespace NewBrainfieldNetCore.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]        
         public async Task<IActionResult> AddToCart(SingleProductViewModel viewModel)
         {
             Type = viewModel.AddToCartViewModel.Type;
@@ -43,7 +44,7 @@ namespace NewBrainfieldNetCore.Controllers
                     GlobalVariables.ProductId = ProductId;
                 }
 
-                var userid = Convert.ToInt32(1);
+                var userid = Convert.ToInt32(GlobalVariables.UserId);
                 var ucart = await entity.tblUserCart.Where(ca => ca.UserID == userid && ca.ExamID == ProductId && ca.Type == Type).FirstOrDefaultAsync();
                 if (ucart != null)
                 {
