@@ -11,6 +11,7 @@
 </head>
 
 <body>
+    <h1 id="Wait">Please wait...</h1>
     <div id="paytm-checkoutjs"></div>
     <script>
         var bolla = '@Html.Raw(Json.Serialize(Model))';
@@ -20,6 +21,11 @@
         var amount = model.amount;
 
         function onScriptLoad() {
+
+            var div = document.getElementById("Wait");
+            console.log(div);
+            div.style.display = 'none';
+
             var config = {
                 "root": "",
                 "flow": "DEFAULT",

@@ -39,7 +39,9 @@ namespace NewBrainfieldNetCore.Data
         public DbSet<tblQuestionMaster> tblQuestionMaster { get; set; }
         public DbSet<tblExamQuestion> tblExamQuestion { get; set; }
         public DbSet<tblQuestionOptionMaster> tblQuestionOptionMaster { get; set; }
-
+        public DbSet<tblExamAppear> tblExamAppear { get; set; }
+        
+        public DbSet<tblOrderMaster> tblOrderMaster { get; set; }
         //protected override void OnModelCreating(ModelBuilder modelBuilder)
         //{
         //    base.OnModelCreating(modelBuilder);

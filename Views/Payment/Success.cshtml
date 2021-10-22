@@ -1,0 +1,32 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@model NewBrainfieldNetCore.Common.Requests.Root
+
+@{
+    Layout = "_FrontendLayout";
+}
+
+<div class="page-title mt-30">
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="container">
+                <h3>Payment Success</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="course-details-area ptb-100">
+    <div class="container">
+        <div class="row">
+            <div class="alert alert-success mb-2" role="alert">
+                <h4 class="alert-heading">Payment Success!</h4>
+                <p>You have sucessfully make payment to brainfield educational services against order <b>@NewBrainfieldNetCore.Helpers.GlobalVariables.OrderId</b>. In case of inconvience contact brainfield educational services.</p>                
+                <hr>
+                <p class="mb-0">
+                    <a asp-controller="Home" asp-action="Index" class="alert-link">Go to Home</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>

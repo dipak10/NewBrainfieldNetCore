@@ -9,7 +9,7 @@ namespace NewBrainfieldNetCore.Helpers
     {
         public static int ExamId = 0;
         public static int UserId;
-        public static int OrderId = 0;
+        public static string OrderId = string.Empty;
         public static string ReturnUrl = string.Empty;
         public static int ProductId;
         public static string ControllerName = string.Empty;
