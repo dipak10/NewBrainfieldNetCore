@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using NewBrainfieldNetCore.Common;
@@ -22,14 +23,16 @@ namespace NewBrainfieldNetCore.Controllers
         private readonly ILoginService _loginService;
         private readonly IForgotPasswordService _forgotPasswordService;
         private readonly IResetPasswordService _resetPasswordService;
-
+        private readonly ICommonService _commonService;
         private readonly IEmailSender _mailService;
 
         public AccountController(ILogger<AccountController> logger,
             ISignUpService signUpService, IEmailSender mailService,
             ILoginService loginService,
             IForgotPasswordService forgotPasswordService,
-            IResetPasswordService resetPasswordService)
+            IResetPasswordService resetPasswordService,
+            ICommonService commonService,
+            IHttpContextAccessor httpContextAccessor)
         {
             _logger = logger;
             _signUpService = signUpService;
@@ -37,7 +40,24 @@ namespace NewBrainfieldNetCore.Controllers
             _loginService = loginService;
             _forgotPasswordService = forgotPasswordService;
             _resetPasswordService = resetPasswordService;
+            _commonService = commonService;
         }
+
+        public async Task<IActionResult> Demo()
+        {
+           
+
+            return View();
+        }
+
+        #region Helper
+
+        private void SetSessionAndGlobalVariables()
+        {
+
+        }
+
+        #endregion
 
         #region Login
 
@@ -53,16 +73,16 @@ namespace NewBrainfieldNetCore.Controllers
             {
                 var login = await _loginService.Login(model);
                 if (login.IsSuccess)
-                {
+                {                
                     return RedirectToAction("Index", "Home");
                 }
 
                 if (login.IsLockOut)
                 {
-                    //var forgotPassLink = Url.Action("ForgotPassword", "Account", new { }, Request.Scheme);
-                    //var content = string.Format("Your account is locked out, to reset your password, please click this link: {0}", forgotPassLink);
+                    var forgotPassLink = Url.Action("ForgotPassword", "Account", new { }, Request.Scheme);
+                    var content = string.Format("Your account is locked out, to reset your password, please click this link: {0}", forgotPassLink);
 
-                    //await _loginService.SendEmail(model.EmailAddress, content);
+                    await _loginService.SendEmail(model.EmailAddress, content);
                 }
 
                 if (login.IdPasswordWrong)
@@ -107,7 +127,7 @@ namespace NewBrainfieldNetCore.Controllers
                         }
 
 
-
+                        //if sucesss redirect to email verification page
                         _logger.Log(LogLevel.Information, "Created Successfully");
                     }
                 }
@@ -167,7 +187,7 @@ namespace NewBrainfieldNetCore.Controllers
                 string token = await _forgotPasswordService.GenerateToken(model);
 
                 if (!string.IsNullOrEmpty(token))
-                {                   
+                {
                     var callbackUrl = Url.Action("ResetPassword", "Account",
                                 new { email = model.Email, token = token }, protocol: Request.Scheme);
 

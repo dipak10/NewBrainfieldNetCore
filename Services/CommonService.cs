@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using NewBrainfieldNetCore.Dto;
 using NewBrainfieldNetCore.Entities;
 using NewBrainfieldNetCore.Helpers;
@@ -18,13 +20,16 @@ namespace NewBrainfieldNetCore.Services
     {
         private readonly ICommonRepository _commonRepository;
         private IMapper _mapper;
+        private readonly UserManager<AspNetUser> _userManager;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-
-        public CommonService(ICommonRepository commonRepository, IMapper mapper)
+        public CommonService(ICommonRepository commonRepository, IMapper mapper,
+            UserManager<AspNetUser> userManager, Microsoft.AspNetCore.Http.IHttpContextAccessor httpContextAccessor)
         {
             _commonRepository = commonRepository;
             _mapper = mapper;
-
+            _userManager = userManager;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<List<tblChapters>> GetChapters()
@@ -46,7 +51,11 @@ namespace NewBrainfieldNetCore.Services
         public async Task<List<tblExamMaster>> GetExams()
         {
             return await _commonRepository.GetExams();
+        }
 
+        public async Task<AspNetUser> GetCurrentUser()
+        {
+            return await _userManager.GetUserAsync(_httpContextAccessor.HttpContext.User);
         }
     }
 }

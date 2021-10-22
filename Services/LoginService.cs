@@ -34,7 +34,8 @@ namespace NewBrainfieldNetCore.Services
             {
                 return new Common.SignInResult
                 {
-                    IsSuccess = true
+                    IsSuccess = true,
+                    Data = result
                 };
             }
 

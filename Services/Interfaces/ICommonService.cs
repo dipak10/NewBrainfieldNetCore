@@ -16,5 +16,7 @@ namespace NewBrainfieldNetCore.Services.Interfaces
         Task<List<tblChapters>> GetChapters();
 
         Task<List<tblExamMaster>> GetExams();
+
+        Task<AspNetUser> GetCurrentUser();
     }
 }
