@@ -9,16 +9,16 @@ namespace NewBrainfieldNetCore.Helpers
     {
         public static int ExamId = 0;
         public static int UserId;
-        public static string OrderId = string.Empty;
+        public static int OrderId = 0;
         public static string ReturnUrl = string.Empty;
         public static int ProductId;
         public static string ControllerName = string.Empty;
         public static string ActionName = string.Empty;
-        public static decimal GrandTotal = 0;        
+        public static decimal GrandTotal = 0;
         public static decimal Result = 0;
         public static int AccessLevel = 0;
         public static string CurrencyName = string.Empty;
-        public static string CountryName = string.Empty;        
+        public static string CountryName = string.Empty;
         public static string ProductType = string.Empty;
         public static int StudyMaterialId = 0;
 

@@ -55,10 +55,19 @@
     <Folder Include="wwwroot\Images\StudyMaterialFileCoverPic\" />
     <Folder Include="wwwroot\DownloadFiles\" />
     <Folder Include="wwwroot\StudyMaterialFiles\" />
+    <Folder Include="wwwroot\V2.0Layout\images\question-img\" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="wwwroot\js\master.js" />
+    <None Include="wwwroot\Timer\jquery.time-to.js" />
+    <None Include="wwwroot\V2.0Layout\fonts\fontawesome-webfont.svg" />
+    <None Include="wwwroot\V2.0Layout\fonts\fontawesome-webfont.woff2" />
+    <None Include="wwwroot\V2.0Layout\fonts\glyphicons-halflings-regular.svg" />
+    <None Include="wwwroot\V2.0Layout\fonts\glyphicons-halflings-regular.woff2" />
+    <None Include="wwwroot\V2.0Layout\js\bootstrap.min.js" />
+    <None Include="wwwroot\V2.0Layout\js\custom.js" />
+    <None Include="wwwroot\V2.0Layout\js\jquery-2.2.4.min.js" />
   </ItemGroup>
 
   <ItemGroup>

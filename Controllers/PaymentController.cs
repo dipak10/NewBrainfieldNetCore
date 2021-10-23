@@ -182,7 +182,7 @@ namespace NewBrainfieldNetCore.Controllers
             finally
             {
                 Dispose();
-            }            
+            }
         }
 
         #region Helpers
@@ -196,7 +196,7 @@ namespace NewBrainfieldNetCore.Controllers
                 {
                     od.UserID = UserId;
                     od.ExamID = r.ProductId;
-                    od.OrderNo = GlobalVariables.OrderId;
+                    od.OrderNo = Convert.ToString(GlobalVariables.OrderId);
                     od.Price = r.SellPrice;
                     od.PlacedOn = DateTime.Now.ConvertToIndianTime();
                     od.Type = r.Type;
@@ -226,7 +226,7 @@ namespace NewBrainfieldNetCore.Controllers
                     {
                         ea.UserID = GlobalVariables.UserId;
                         ea.ExamID = r.ProductId;
-                        int getorderid = await context.tblOrderMaster.Where(x => x.OrderNo == GlobalVariables.OrderId).Select(x => x.OrderID).FirstAsync();
+                        int getorderid = await context.tblOrderMaster.Where(x => x.OrderNo == GlobalVariables.OrderId.ToString()).Select(x => x.OrderID).FirstAsync();
                         ea.OrderID = getorderid;
                         ea.Appear = 0;
                         ea.LastUpdated = DateTime.Now;
@@ -240,7 +240,7 @@ namespace NewBrainfieldNetCore.Controllers
                         {
                             ea.UserID = GlobalVariables.UserId;
                             ea.ExamID = d.ExamID;
-                            int getorderid = context.tblOrderMaster.Where(x => x.OrderNo == GlobalVariables.OrderId).Select(x => x.OrderID).First();
+                            int getorderid = context.tblOrderMaster.Where(x => x.OrderNo == GlobalVariables.OrderId.ToString()).Select(x => x.OrderID).First();
                             ea.OrderID = getorderid;
                             ea.Appear = 0;
                             ea.LastUpdated = DateTime.Now;
@@ -337,7 +337,7 @@ namespace NewBrainfieldNetCore.Controllers
         private string GenrateOrderNo()
         {
             OrderNo = Convert.ToString(DateTime.Now.Ticks);
-            GlobalVariables.OrderId = OrderNo;
+            GlobalVariables.OrderId = Convert.ToInt32(OrderNo);
             return OrderNo;
         }
 

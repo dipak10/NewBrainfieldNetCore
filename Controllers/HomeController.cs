@@ -2,6 +2,9 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using NewBrainfieldNetCore.Data;
+using NewBrainfieldNetCore.Entities;
+using NewBrainfieldNetCore.Helpers;
 using NewBrainfieldNetCore.Models;
 using NewBrainfieldNetCore.Services.Interfaces;
 using System;
@@ -15,25 +18,29 @@ namespace NewBrainfieldNetCore.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly INotyfService _notyf;
         private readonly ICommonService _commonService;
+        private readonly ApplicationContext context;
 
-        public HomeController(ILogger<HomeController> logger, INotyfService notyf, ICommonService commonService)
+        public HomeController(ILogger<HomeController> logger,
+            INotyfService notyf,
+            ICommonService commonService, ApplicationContext context)
         {
             _logger = logger;
             _notyf = notyf;
             _commonService = commonService;
+            this.context = context;
         }
 
         public async Task<IActionResult> Index()
         {
             try
             {
-                var data = await _commonService.GetCurrentUser();                
+                var data = await _commonService.GetCurrentUser();
                 if (data != null)
                 {
-                    Helpers.GlobalVariables.UserId = data.UserID;                    
-                }
+                    Helpers.GlobalVariables.UserId = data.UserID;
+                }                              
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 _logger.LogError("Error Occured");
             }

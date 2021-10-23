@@ -121,6 +121,10 @@ namespace NewBrainfieldNetCore
                     pattern: "Admin/{controller=Home}/{action=Index}/{id?}");
 
                 endpoints.MapControllerRoute(
+                    name: "ApplyExam",
+                    pattern: "{controller=Home}/{action=Index}/{ExamId}/{OrderId}");
+
+                endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
 
