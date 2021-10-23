@@ -25,7 +25,7 @@
     <!-- Timer  -->
     <link href="~/Timer/timeTo.css" rel="stylesheet" />
     <!-- End Timer  -->
-   
+
     <style>
         .LockOn {
             display: block;
@@ -589,13 +589,13 @@
                 type: "POST",
                 tryCount: 0,
                 retryLimit: 3,
-                url: '@Url.Action("TakeExamValue","Exams")',
+                url: '@Url.Action("TakeExamValue","ApplyExam")',
                 //url: "http://localhost:8200/Exams/TakeExamValue/",
                 data: JSON.stringify(model),
                 contentType: "application/json",
                 success: function (data) {
                     console.log(data);
-                    window.location.href = '@Url.Action("GenrateResult", "Exams")';
+                    window.location.href = '@Url.Action("GenerateResult", "ApplyExam")';
                 },
                 error: function (data) {
                     this.tryCount++;
@@ -618,8 +618,9 @@
 
     <script type="text/javascript">
         function ResetTimeOut() {
-            var pageToCall = "http://brainfieldindia.in/Home/Demo";
+            //var pageToCall = "http://brainfieldindia.in/Home/Demo";
             //var pageToCall = "http://localhost:8200/Home/SomeData";
+            var pageToCall = "https://www.google.com";
             if (window.XMLHttpRequest) {
                 var request = new XMLHttpRequest()
             }

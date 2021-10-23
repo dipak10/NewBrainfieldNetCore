@@ -41,7 +41,7 @@ namespace NewBrainfieldNetCore.Data
         public DbSet<tblQuestionOptionMaster> tblQuestionOptionMaster { get; set; }
         public DbSet<tblExamAppear> tblExamAppear { get; set; }
         public DbSet<tblOrderMaster> tblOrderMaster { get; set; }
-
+        public DbSet<tblExamMark> tblExamMark { get; set; }
 
 
         //Store Proceduers

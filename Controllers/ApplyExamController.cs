@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using NewBrainfieldNetCore.Data;
 using NewBrainfieldNetCore.Entities;
@@ -23,17 +24,26 @@ namespace NewBrainfieldNetCore.Controllers
         private readonly ApplicationContext entity;
         private readonly INotyfService notyf;
         private readonly ILogger<ApplyExamController> logger;
+        private readonly IConfiguration config;
 
         private decimal correctquestion = 0;
         private static int gettotalappered = 0;
 
         private List<Tuple<int, string>> keyValuePairs = new List<Tuple<int, string>>();
 
-        public ApplyExamController(ApplicationContext entity, INotyfService notyf, ILogger<ApplyExamController> logger)
+        private static List<StartExamViewModel> StaticResultList = null;
+
+        private static string[] StaticRightWrong = new string[180];
+
+        public ApplyExamController(ApplicationContext entity, INotyfService notyf,
+            ILogger<ApplyExamController> logger, IConfiguration config)
         {
             this.entity = entity;
             this.notyf = notyf;
             this.logger = logger;
+            this.config = config;
+
+            StaticResultList = new List<StartExamViewModel>();            
         }
 
         [Route("Exam/{ExamId:int}/Order/{OrderId:int}")]
@@ -64,6 +74,10 @@ namespace NewBrainfieldNetCore.Controllers
                 Stopwatch stopwatch = new Stopwatch();
                 stopwatch.Start();
 
+                var cons = this.config.GetConnectionString("DefaultConnection");
+
+                logger.LogDebug($"CONNECTION STRING {cons}");
+
                 string constring = "Data Source=DESKTOP-JGV15TO\\NSJSQLEXPRESS;Initial Catalog=Newexamportal;Integrated Security=True";
                 DataSet ds = new DataSet("StartExam");
 
@@ -87,6 +101,9 @@ namespace NewBrainfieldNetCore.Controllers
                 }
 
                 eqa = AddToList(ds);
+
+                StaticResultList = eqa;
+
                 List<Tuple<int, string>> subjects = GetSubjectWiseIndex(eqa);
                 var candidatename = "Malpha";
                 var examname = entity.tblExamMaster.Where(x => x.ExamID == GlobalVariables.ExamId).Select(x => x.ExamName).First();
@@ -108,10 +125,108 @@ namespace NewBrainfieldNetCore.Controllers
             {
                 Dispose();
             }
-
         }
 
+        public async Task<IActionResult> TakeExamValue(string[] model)
+        {
+            try
+            {
+                GlobalVariables.Result = 0;
+                if (model != null)
+                {
+                    string exid = model[0];
+                    string uid = model[1];
 
+                    List<string> list = model.ToList(); // <- to List which is mutable
+                    list.RemoveAt(0);
+                    list.RemoveAt(0); // <- remove 
+                    model = list.ToArray();
+
+                    int _exid = Convert.ToInt32(exid);
+                    int _uid = Convert.ToInt32(uid);
+
+                    MarkCounting(model, _exid, _uid);
+                    ExamMark(_exid, _uid);
+                    GlobalVariables.Result = correctquestion;
+                    SetGlobalValues(_exid, _uid, correctquestion);
+                    return Json("Success " + GlobalVariables.Result);
+                }
+                else
+                {
+                    return Json("Error");
+                }
+            }
+            catch (Exception)
+            {
+                return Json("Error Function");
+            }
+        }
+
+        private void MarkCounting(string[] model, int exid, int uid)
+        {
+            try
+            {
+                string[] answersrightwrong = new string[model.Count()];
+                             
+                var answer = StaticResultList.OrderBy(x => x.SubjectID).ToList();
+
+                int x = 0;
+                foreach (var r in model)
+                {
+                    if (string.IsNullOrEmpty(r))
+                    {
+                    }
+                    else
+                    {
+                        if (answer[x].CorrectAnswer == r.ToString())
+                        {
+                            correctquestion = correctquestion + answer[x].Mark;
+                            answersrightwrong[x] = "Right";
+                        }
+                        else
+                        {
+                            decimal correct = Convert.ToDecimal(correctquestion) - answer[x].NegativeMark;
+                            correctquestion = Convert.ToDecimal(correct);
+                            answersrightwrong[x] = "Wrong";
+                        }
+                    }
+                    x++;
+                }
+                //Session["rw"] = answersrightwrong;
+                StaticRightWrong = answersrightwrong;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("error" + e);
+            }
+        }
+
+        public void ExamMark(int exid, int uid)
+        {
+            tblExamMark em = new tblExamMark();
+            em.UserID = uid;
+            em.ExamID = exid;
+            em.ObtainMark = correctquestion;
+            em.DateAdded = DateTime.Now;
+            entity.tblExamMark.Add(em);
+            entity.SaveChanges();
+        }
+        public ActionResult GenerateResult()
+        {
+            //string uname = entity.Registers.Where(x => x.UserId == GlobalVariable.UserId).Select(x => x.Name).First();
+            //string ename = entity.ExamMasters.Where(x => x.ExamId == GlobalVariable.ExamId).Select(x => x.ExamName).First();
+
+            CertificateViewModel model = new CertificateViewModel()
+            {
+                StudentName = "Malpha",
+                ExamName = "NEET UG 2021",
+                ExamDate = DateTime.Now.Date,
+                ExamMark = GlobalVariables.Result,
+                UniqueNumber = Guid.NewGuid()
+            };
+            return View(model);
+        }
+     
         #region Helpers
 
         private List<StartExamViewModel> AddToList(DataSet set)
@@ -168,6 +283,14 @@ namespace NewBrainfieldNetCore.Controllers
             Helpers.GlobalVariables.ExamId = ExamId;
             Helpers.GlobalVariables.OrderId = OrderId;
             GlobalVariables.UserId = 2;
+        }
+
+        private void SetGlobalValues(int ExamId, int UserId, decimal CorrectQuestion)
+        {
+            GlobalVariables.ExamId = ExamId;
+            GlobalVariables.UserId = UserId;
+            GlobalVariables.Result = CorrectQuestion;
+
         }
 
         public async Task<bool> CheckEligibilityForExam(int? ExamId, int? OrderId)

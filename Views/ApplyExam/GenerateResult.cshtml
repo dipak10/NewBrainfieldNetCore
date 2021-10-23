@@ -1,0 +1,29 @@
+﻿@model NewBrainfieldNetCore.Viewmodels.CertificateViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "_FrontendLayout";
+}
+
+<div class="page-title mt-30">
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="container">
+                <h3>Certificate</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h1>@Model.ExamMark</h1>
+
+<h1>@Model.ExamName</h1>
+
+<h1>@Model.StudentName</h1>
+
+<h1>@Model.UniqueNumber</h1>
+
+<a asp-action="GeneratePdf" asp-controller="ApplyExam" class="btn btn-primary">Generate PDF</a>
+
+<a asp-action="Explanation" asp-controller="ApplyExam" class="btn btn-success btn-lg">Go To Explanation</a>
