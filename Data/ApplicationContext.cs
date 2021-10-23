@@ -40,12 +40,17 @@ namespace NewBrainfieldNetCore.Data
         public DbSet<tblExamQuestion> tblExamQuestion { get; set; }
         public DbSet<tblQuestionOptionMaster> tblQuestionOptionMaster { get; set; }
         public DbSet<tblExamAppear> tblExamAppear { get; set; }
-        
         public DbSet<tblOrderMaster> tblOrderMaster { get; set; }
+
+
+
+        //Store Proceduers
+
+        public DbSet<uspGetStudentExam> UspGetStudentExam { get; set; }
+
         //protected override void OnModelCreating(ModelBuilder modelBuilder)
         //{
-        //    base.OnModelCreating(modelBuilder);
-        //    modelBuilder.ApplyConfiguration(new RoleConfiguration());
+        //    modelBuilder.Entity<uspGetStudentExam>().OwnsOne(x => x.ExamID);
         //}
     }
 }
