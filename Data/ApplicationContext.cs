@@ -42,6 +42,7 @@ namespace NewBrainfieldNetCore.Data
         public DbSet<tblExamAppear> tblExamAppear { get; set; }
         public DbSet<tblOrderMaster> tblOrderMaster { get; set; }
         public DbSet<tblExamMark> tblExamMark { get; set; }
+        public DbSet<tblStudyMaterialPayment> tblStudyMaterialPayment { get; set; }
 
 
         //Store Proceduers

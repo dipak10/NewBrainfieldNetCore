@@ -14,7 +14,7 @@ namespace NewBrainfieldNetCore.Entities
 		public string OrderNo { get; set; }
 		public bool IsPaid { get; set; }
 		public bool IsDownloaded { get; set; }
-		public DateTime DownloadedOn { get; set; }
-		public DateTime CreatedOn { get; set; }
+		public DateTime? DownloadedOn { get; set; }
+		public DateTime? CreatedOn { get; set; }
 	}
 }

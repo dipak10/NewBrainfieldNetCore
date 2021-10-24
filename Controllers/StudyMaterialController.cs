@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NewBrainfieldNetCore.Data;
+using NewBrainfieldNetCore.Entities;
 using NewBrainfieldNetCore.Helpers;
 using NewBrainfieldNetCore.Viewmodels;
 using System;
@@ -62,20 +63,42 @@ namespace NewBrainfieldNetCore.Controllers
             return View();
         }
 
-
-
         [HttpPost]
-        public async Task<IActionResult> Checkout(Democlass model)
+        public async Task<IActionResult> Checkout(StudyMaterialCheckoutViewModel model)
         {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    tblStudyMaterialPayment smp = new tblStudyMaterialPayment();
+                    smp.Name = model.BuyerName;
+                    smp.EmailID = model.BuyerEmail;
+                    smp.PhoneNumber = model.BuyerPhone;
+                    smp.StudyMaterialFileID = GlobalVariables.StudyMaterialId;
+                    smp.OrderNo = GeneratateOrderNo();
+                    smp.IsPaid = false;
+                    smp.IsDownloaded = false;                    
+                    smp.CreatedOn = DateTime.Now.ConvertToIndianTime();
+                    await entity.tblStudyMaterialPayment.AddAsync(smp);
+                    await entity.SaveChangesAsync();
+                    ModelState.Clear();
+                    notyf.Success("Data Saved, Redirecting to Payment");
+                }
+                catch (Exception e)
+                {
+                    notyf.Error("Data not saved, try again");
+                }
+                finally
+                {
+                    Dispose();
+                }
+            }
             return View();
         }
-    }
 
-
-    public class Democlass
-    {
-        public string BuyerName { get; set; }
-        public string BuyerPhone { get; set; }
-        public string BuyerEmail { get; set; }
-    }
+        private string GeneratateOrderNo()
+        {
+            return DateTime.Now.Ticks.ToString();
+        }
+    }   
 }
