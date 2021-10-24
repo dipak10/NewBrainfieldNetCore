@@ -102,13 +102,15 @@ namespace NewBrainfieldNetCore.Controllers
                 StaticResultList = eqa;
 
                 List<Tuple<int, string>> subjects = GetSubjectWiseIndex(eqa);
+
                 var candidatename = "Malpha";
+
                 var examname = entity.tblExamMaster.Where(x => x.ExamID == GlobalVariables.ExamId).Select(x => x.ExamName).First();
 
                 stopwatch.Stop();
                 string time = stopwatch.ElapsedMilliseconds.ToString();
 
-                this.logger.LogInformation($"95 Time to called data {time}");
+                this.logger.LogInformation($"Time to called data {time}");
 
                 //Thread.Sleep(8000);
                 return View(new StartExamViewModel(eqa.OrderBy(x => x.SubjectID), subjects, candidatename, examname, GlobalVariables.ExamId, GlobalVariables.UserId));

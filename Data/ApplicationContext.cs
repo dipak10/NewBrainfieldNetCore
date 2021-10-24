@@ -47,8 +47,8 @@ namespace NewBrainfieldNetCore.Data
         //Store Proceduers
 
         public DbSet<uspGetStudentExam> UspGetStudentExam { get; set; }
-
         public DbSet<uspGetExamWiseExplanation> UspGetExamWiseExplanation { get; set; }
+        public DbSet<uspGetAllOrders> uspGetAllOrders { get; set; }
 
         //protected override void OnModelCreating(ModelBuilder modelBuilder)
         //{
