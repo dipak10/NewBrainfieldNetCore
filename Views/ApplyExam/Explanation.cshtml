@@ -1,0 +1,48 @@
+﻿@model List<NewBrainfieldNetCore.Entities.uspGetExamWiseExplanation>
+@{
+
+    Layout = "_FrontendLayout";
+
+    List<NewBrainfieldNetCore.Entities.uspGetExamWiseExplanation> sm = Model.ToList();
+
+    var iq = NewBrainfieldNetCore.Helpers.GlobalVariables.StaticRightWrong as string[];
+
+    int r = 1;
+}
+
+<div class="main-content">    
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-md-push-1">
+                    <div id="section-two" class="mb-50">
+                        @for (int i = 0; i < sm.Count; i++)
+                        {
+                            <p>
+                                <b> Question: @r. </b> @Html.Raw(sm[i].Question)
+                            </p>
+                            <br />
+                            <div style="border:dashed 1px gray; height:auto; padding:4px;">
+                                <b> Explanation: </b> @Html.Raw(sm[i].Explanation)
+                            </div>
+                            <br />
+                            <p>
+                                <b style="color:green"> Right Answer is: </b>  @Html.Raw(sm[i].CorrectAnswer)
+                            </p>
+                            <p>
+                                <b> Your answer is : @iq[i] </b>
+                            </p>
+                            <hr />
+                            r++;
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-sm-6 col-xs-12 col-md-push-1">
+                    <a href="../Home/Index" class="btn btn-danger btn-lg mb-10">Exit Test</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

@@ -22,6 +22,8 @@ namespace NewBrainfieldNetCore.Helpers
         public static string ProductType = string.Empty;
         public static int StudyMaterialId = 0;
 
+        public static string[] StaticRightWrong = new string[180];
+
         public static string result = string.Empty;
 
         public static readonly string Success = "Successfully Added";

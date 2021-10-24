@@ -413,8 +413,7 @@
                 }
                 var question = this.questions[this.currentQuestionNo];
                 $('#questionNumber').html("<span class=\"questionNumber\">Question No</span>." + index);
-                //$('#quedetails').html(question.questionText + question.Controltype);
-                $('#quedetails').html("<img src='" + question.questionText + "'/>" + question.Controltype);
+                $('#quedetails').html(question.questionText + question.Controltype);
                 if (question.userAnswer != null && question.userAnswer != "") {
                     $('input[name="optradio"][value="' + question.userAnswer + '"]').prop('checked', true);
                 }
@@ -570,7 +569,7 @@
             CallSave();
         });
 
-        function CallSave() {
+         function CallSave() {
             var exid = $("#ExamId").val();
             var uid = $("#UserId").val();
             $("#coverScreen").show();
@@ -583,19 +582,36 @@
                 var ac = dobj[i].userAnswer
                 model.push(ac);
             }
-            $.ajax({
+
+             $.ajax({
+                 url: '/ApplyExam/TakeExamValue/',
+                 data:{
+                     model: model
+                 },
+                 type: 'POST',
+                 dataType: 'Text',
+                 cache: false,
+                 success: function (data) {
+                     window.location.href = '@Url.Action("GenerateResult", "ApplyExam")';
+                 },
+                 error: function (data) {
+                     $.cookie('answers', JSON.stringify(model), { expires: 1, path: '/' });
+                     window.location.href = "../ExamFailure/ErrorPage";
+                 }
+             });
+
+            @*$.ajax({
                 dataType: "Text",
                 async: true,
                 type: "POST",
                 tryCount: 0,
                 retryLimit: 3,
-                url: '@Url.Action("TakeExamValue","ApplyExam")',
-                //url: "http://localhost:8200/Exams/TakeExamValue/",
-                data: JSON.stringify(model),
+                url: '@Url.Action("TakeExamValue", "ApplyExam")',
+                data: str,
                 contentType: "application/json",
                 success: function (data) {
                     console.log(data);
-                    window.location.href = '@Url.Action("GenerateResult", "ApplyExam")';
+                    //window.location.href = '@Url.Action("GenrateResult", "Exams")';
                 },
                 error: function (data) {
                     this.tryCount++;
@@ -612,36 +628,8 @@
                         window.location.href = "../ExamFailure/ErrorPage";
                     }
                 }
-            });
+            });*@
         }
     </script>
-
-    <script type="text/javascript">
-        function ResetTimeOut() {
-            //var pageToCall = "http://brainfieldindia.in/Home/Demo";
-            //var pageToCall = "http://localhost:8200/Home/SomeData";
-            var pageToCall = "https://www.google.com";
-            if (window.XMLHttpRequest) {
-                var request = new XMLHttpRequest()
-            }
-            else {
-                request = new ActiveXObject("Microsoft.XMLHTTP")
-            }
-            request.open("GET", pageToCall, true);
-            request.send();
-        }
-        window.setInterval("ResetTimeOut();", 25000);
-    </script>
-
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    @*<script async src="https://www.googletagmanager.com/gtag/js?id=UA-158749432-1"></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag() { dataLayer.push(arguments); }
-            gtag('js', new Date());
-
-            gtag('config', 'UA-158749432-1');
-        </script>*@
-
 </body>
 </html>

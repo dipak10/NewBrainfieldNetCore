@@ -13,7 +13,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace NewBrainfieldNetCore.Controllers
@@ -33,7 +32,7 @@ namespace NewBrainfieldNetCore.Controllers
 
         private static List<StartExamViewModel> StaticResultList = null;
 
-        private static string[] StaticRightWrong = new string[180];
+
 
         public ApplyExamController(ApplicationContext entity, INotyfService notyf,
             ILogger<ApplyExamController> logger, IConfiguration config)
@@ -42,8 +41,6 @@ namespace NewBrainfieldNetCore.Controllers
             this.notyf = notyf;
             this.logger = logger;
             this.config = config;
-
-            StaticResultList = new List<StartExamViewModel>();            
         }
 
         [Route("Exam/{ExamId:int}/Order/{OrderId:int}")]
@@ -127,7 +124,8 @@ namespace NewBrainfieldNetCore.Controllers
             }
         }
 
-        public async Task<IActionResult> TakeExamValue(string[] model)
+
+        public IActionResult TakeExamValue(string[] model)
         {
             try
             {
@@ -149,6 +147,7 @@ namespace NewBrainfieldNetCore.Controllers
                     ExamMark(_exid, _uid);
                     GlobalVariables.Result = correctquestion;
                     SetGlobalValues(_exid, _uid, correctquestion);
+
                     return Json("Success " + GlobalVariables.Result);
                 }
                 else
@@ -167,7 +166,7 @@ namespace NewBrainfieldNetCore.Controllers
             try
             {
                 string[] answersrightwrong = new string[model.Count()];
-                             
+
                 var answer = StaticResultList.OrderBy(x => x.SubjectID).ToList();
 
                 int x = 0;
@@ -193,7 +192,7 @@ namespace NewBrainfieldNetCore.Controllers
                     x++;
                 }
                 //Session["rw"] = answersrightwrong;
-                StaticRightWrong = answersrightwrong;
+                GlobalVariables.StaticRightWrong = answersrightwrong;
             }
             catch (Exception e)
             {
@@ -226,7 +225,13 @@ namespace NewBrainfieldNetCore.Controllers
             };
             return View(model);
         }
-     
+
+        public async Task<IActionResult> Explanation()
+        {
+            var data = await entity.UspGetExamWiseExplanation.FromSqlRaw("uspGetExamWiseExplanation {0}", GlobalVariables.ExamId).ToListAsync();
+            return View(data);
+        }
+
         #region Helpers
 
         private List<StartExamViewModel> AddToList(DataSet set)
@@ -245,7 +250,9 @@ namespace NewBrainfieldNetCore.Controllers
                               OptionD = dataRow.Field<string>("OptionD"),
                               CorrectAnswer = dataRow.Field<string>("CorrectAnswer"),
                               SubjectID = dataRow.Field<int>("SubjectID"),
-                              SubjectName = dataRow.Field<string>("SubjectName")
+                              SubjectName = dataRow.Field<string>("SubjectName"),
+                              Mark = dataRow.Field<int>("Mark"),
+                              NegativeMark = dataRow.Field<decimal>("NegativeMark")
                           }).ToList();
             return startExamViewModels;
         }

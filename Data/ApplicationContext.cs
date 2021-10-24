@@ -48,6 +48,8 @@ namespace NewBrainfieldNetCore.Data
 
         public DbSet<uspGetStudentExam> UspGetStudentExam { get; set; }
 
+        public DbSet<uspGetExamWiseExplanation> UspGetExamWiseExplanation { get; set; }
+
         //protected override void OnModelCreating(ModelBuilder modelBuilder)
         //{
         //    modelBuilder.Entity<uspGetStudentExam>().OwnsOne(x => x.ExamID);
