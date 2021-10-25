@@ -148,8 +148,8 @@ a {
 
 .btn-primary {
     color: #fff;
-    background-color: #e60c3d;
-    border-color: #e60c3d;
+    background-color: #0d6efd;
+    border-color: #0d6efd;
 }
 
 .btn {
@@ -726,7 +726,7 @@ a {
     }
 
         .main-banner-content h1 span {
-            color: #e60c3d
+            color: white;
         }
 
     .main-banner-content p {
@@ -1172,7 +1172,7 @@ a {
 
 .why-choose-us {
     position: relative;
-    background: #e60c3d;
+    background: dodgerblue;
     overflow: hidden
 }
 
