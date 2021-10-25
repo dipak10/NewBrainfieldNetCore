@@ -385,6 +385,7 @@ a {
     background-color: white;
     top: 0;
     left: 0;
+    border-bottom: 5px solid lightyellow;
     -o-transition: .4s;
     -webkit-transition: .4s;
     -moz-transition: .4s;
@@ -673,7 +674,6 @@ a {
         }
 
 .main-banner {
-    background-image: url(../img/home-bg1.jpg);
     position: relative;
     background-position: center center;
     background-size: cover;
@@ -1262,7 +1262,7 @@ a {
 }
 
 .courses-img img {
-    width: 100%
+    width: 100%;
 }
 
 .single-courses-item .courses-img img {
@@ -1334,7 +1334,7 @@ a {
         text-transform: uppercase
     }
 
-.courses-item {
+.courses-item {    
     background: #fff;
     margin-bottom: 30px;
     padding: 15px;
@@ -4758,8 +4758,8 @@ a {
 }
 
 .copyright-area {
-     margin-top: 100px; 
-     padding: 20px 0; 
+    margin-top: 100px;
+    padding: 20px 0;
 }
 
     .copyright-area p {
