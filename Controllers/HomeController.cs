@@ -7,6 +7,7 @@ using NewBrainfieldNetCore.Entities;
 using NewBrainfieldNetCore.Helpers;
 using NewBrainfieldNetCore.Models;
 using NewBrainfieldNetCore.Services.Interfaces;
+using NewBrainfieldNetCore.Viewmodels;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -18,27 +19,39 @@ namespace NewBrainfieldNetCore.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly INotyfService _notyf;
         private readonly ICommonService _commonService;
-        private readonly ApplicationContext context;
+        private readonly IHomeService _homeService;
+        private readonly ApplicationContext _context;
 
-        public HomeController(ILogger<HomeController> logger,
-            INotyfService notyf,
-            ICommonService commonService, ApplicationContext context)
+        public HomeController(ILogger<HomeController> logger, INotyfService notyf, ICommonService commonService,
+            IHomeService homeService, ApplicationContext context)
         {
             _logger = logger;
             _notyf = notyf;
             _commonService = commonService;
-            this.context = context;
+            _homeService = homeService;
+            _context = context;
         }
 
         public async Task<IActionResult> Index()
         {
             try
             {
-                var data = await _commonService.GetCurrentUser();
-                if (data != null)
+                //var data = await _commonService.GetCurrentUser();
+                //if (data != null)
+                //{
+                //    Helpers.GlobalVariables.UserId = data.UserID;
+                //}
+                //
+                var blogsTask = await _homeService.GetHomePageNews();
+                var testimonialsTask = await _homeService.GetTestimonials();
+
+                var model = new HomePageViewModel
                 {
-                    Helpers.GlobalVariables.UserId = data.UserID;
-                }                              
+                    Blogs = blogsTask,
+                    Testimonials = testimonialsTask
+                };
+
+                return View(model);
             }
             catch (Exception e)
             {
@@ -48,8 +61,7 @@ namespace NewBrainfieldNetCore.Controllers
             {
                 Dispose();
             }
-
-            return View();
+            return RedirectToAction("Error");
         }
 
         public IActionResult Privacy()

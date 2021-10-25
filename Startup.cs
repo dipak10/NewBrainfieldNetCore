@@ -55,7 +55,9 @@ namespace NewBrainfieldNetCore
             services.AddDbContext<ApplicationContext>(options =>
             options.UseSqlServer(
                 Configuration.GetConnectionString("DefaultConnection"),
-                b => b.MigrationsAssembly(typeof(ApplicationContext).Assembly.FullName)));
+                b => b.MigrationsAssembly(typeof(ApplicationContext).Assembly.FullName)), ServiceLifetime.Transient);
+
+
 
             services.AddIdentity<AspNetUser, IdentityRole>(config =>
             {
@@ -86,6 +88,7 @@ namespace NewBrainfieldNetCore
             services.AddScoped<ISubjectService, SubjectService>();
             services.AddScoped<ISubjectRepository, SubjectRepository>();
             services.AddScoped<IStudyVideosServices, StudyVideoServices>();
+            services.AddScoped<IHomeService, HomeService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

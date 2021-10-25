@@ -1,4 +1,6 @@
-﻿@{
+﻿@model NewBrainfieldNetCore.Viewmodels.HomePageViewModel
+
+@{
     ViewData["Title"] = "Clean DDD Architecture Sample";
 }
 
@@ -213,45 +215,21 @@
     </div>
     <div class="row m-0">
         <div class="testimonials-slider">
-            <div class="col-lg-12 col-md-12">
-                <div class="single-feedback">
-                    <img src="~/assets/img/client1.jpg" alt="client" />
-                    <div class="feedback-content">
-                        <i class="icofont-quote-left"></i>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                            aliquip ex ea commodo consequat.
-                        </p>
-                        <h3>Jason Stamtham</h3>
+            @foreach (var testimonial in Model.Testimonials)
+            {
+                <div class="col-lg-12 col-md-12">
+                    <div class="single-feedback">
+                        <img src="~/Images/Testimonials/@testimonial.StudentImage" alt="@testimonial.TestimonialBy" />
+                        <div class="feedback-content">
+                            <i class="icofont-quote-left"></i>
+                            <p>
+                                @testimonial.TestimonialText
+                            </p>
+                            <h3>@testimonial.TestimonialBy</h3>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-12 col-md-12">
-                <div class="single-feedback">
-                    <img src="~/assets/img/client2.jpg" alt="client" />
-                    <div class="feedback-content">
-                        <i class="icofont-quote-left"></i>
-                        <p>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
-                            scrambled it to make.
-                        </p>
-                        <h3>John Doe</h3>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-12 col-md-12">
-                <div class="single-feedback">
-                    <img src="~/assets/img/client3.jpg" alt="client" />
-                    <div class="feedback-content">
-                        <i class="icofont-quote-left"></i>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                            aliquip ex ea commodo consequat.
-                        </p>
-                        <h3>Steven Smith</h3>
-                    </div>
-                </div>
-            </div>
+            }
         </div>
     </div>
 </section>
@@ -269,50 +247,32 @@
 <section class="news-area ptb-100">
     <div class="container">
         <div class="section-title">
-            <h3>EduField News</h3>
+            <h3>Brainfield News</h3>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco .</p>
         </div>
         <div class="row">
             <div class="news-slider">
-                <div class="col-lg-12 col-md-12">
-                    <div class="single-blog-post">
-                        <img src="assets/img/blog-one.jpg" alt="blog" />
-                        <div class="date"><span>18 Jan, 2021</span></div>
-                        <div class="blog-post-content">
-                            <h3><a href="#">Online Tutorials</a></h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipi scing elit nullam blandit bibn dit.</p>
-                            <a href="#" class="read-more">
-                                <span class="left"><i class="icofont-rounded-double-right"></i></span> Read More <span class="right"><i class="icofont-rounded-double-right"></i></span>
-                            </a>
+                @foreach (var news in Model.Blogs)
+                {
+                    <div class="col-lg-12 col-md-12">
+                        <div class="single-blog-post">
+                            <img src="~/Images/Blog/@news.BlogImage" alt="blog" />
+                            <div class="date"><span>@news.CreatedDate.ToShortDateString()</span></div>
+                            <div class="blog-post-content">
+                                <h3><a href="#">@news.BlogTitle</a></h3>
+                                <p class="text-truncate">@news.BlogContent</p>
+                                <a href="#" class="read-more">
+                                    <span class="left">
+                                        <i class="icofont-rounded-double-right"></i>
+                                    </span> Read More
+                                    <span class="right">
+                                        <i class="icofont-rounded-double-right"></i>
+                                    </span>
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-12 col-md-12">
-                    <div class="single-blog-post">
-                        <img src="assets/img/blog-two.jpg" alt="blog" />
-                        <div class="date"><span>18 Jan, 2021</span></div>
-                        <div class="blog-post-content">
-                            <h3><a href="#">Web Design</a></h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipi scing elit nullam blandit bibn dit.</p>
-                            <a href="#" class="read-more">
-                                <span class="left"><i class="icofont-rounded-double-right"></i></span> Read More <span class="right"><i class="icofont-rounded-double-right"></i></span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-12 col-md-12">
-                    <div class="single-blog-post">
-                        <img src="assets/img/blog-three.jpg" alt="blog" />
-                        <div class="date"><span>18 Jan, 2021</span></div>
-                        <div class="blog-post-content">
-                            <h3><a href="#">PHP Tutorials</a></h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipi scing elit nullam blandit bibn dit.</p>
-                            <a href="#" class="read-more">
-                                <span class="left"><i class="icofont-rounded-double-right"></i></span> Read More <span class="right"><i class="icofont-rounded-double-right"></i></span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                }
             </div>
         </div>
     </div>
