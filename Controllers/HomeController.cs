@@ -3,8 +3,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using NewBrainfieldNetCore.Data;
-using NewBrainfieldNetCore.Entities;
-using NewBrainfieldNetCore.Helpers;
 using NewBrainfieldNetCore.Models;
 using NewBrainfieldNetCore.Services.Interfaces;
 using NewBrainfieldNetCore.Viewmodels;
@@ -41,31 +39,23 @@ namespace NewBrainfieldNetCore.Controllers
                 //{
                 //    Helpers.GlobalVariables.UserId = data.UserID;
                 //}
-                //
-
-                Stopwatch sw = new Stopwatch();
-                sw.Start();
-
+                               
                 var news = await _homeService.GetHomePageNews();
                 var testimonials = await _homeService.GetTestimonials();
+                var featuredExams = await _homeService.GetFeaturedExams();
 
                 var model = new HomePageViewModel
                 {
                     News = news,
-                    Testimonials = testimonials
+                    Testimonials = testimonials,
+                    FeaturedExams = featuredExams
                 };
-
-                sw.Stop();
-
-                var time = sw.ElapsedMilliseconds.ToString();
-
-                _logger.LogDebug($"Time take to load home page 62 {time}");
-
+              
                 return View(model);
             }
             catch (Exception e)
             {
-                _logger.LogError("Error Occured");
+                _logger.LogError($"Error Occured {e.InnerException}");
             }
             finally
             {

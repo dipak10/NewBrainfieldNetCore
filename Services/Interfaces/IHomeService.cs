@@ -1,7 +1,6 @@
 ﻿using NewBrainfieldNetCore.Entities;
-using System;
+using NewBrainfieldNetCore.Viewmodels;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace NewBrainfieldNetCore.Services.Interfaces
@@ -10,6 +9,8 @@ namespace NewBrainfieldNetCore.Services.Interfaces
     {
         Task<List<tblTestimonials>> GetTestimonials();
 
-        Task<List<tblNews>> GetHomePageNews();      
+        Task<List<tblNews>> GetHomePageNews();
+
+        Task<List<FeaturedExamViewModel>> GetFeaturedExams();
     }
 }
