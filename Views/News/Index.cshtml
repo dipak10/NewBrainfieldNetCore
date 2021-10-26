@@ -1,4 +1,4 @@
-﻿@model List<NewBrainfieldNetCore.Entities.tblBlogs>
+﻿@model List<NewBrainfieldNetCore.Entities.tblNews>
 @{
     Layout = "_FrontendLayout";
 }
@@ -7,7 +7,7 @@
     <div class="d-table">
         <div class="d-table-cell">
             <div class="container">
-                <h3>All Blog</h3>
+                <h3>All News</h3>
             </div>
         </div>
     </div>
@@ -25,7 +25,7 @@
                             <div class="single-blog">
                                 <div class="blog-img">
                                     <a href="#">
-                                        <img src="~/Images/Blog/@x.BlogImage" alt="blog">
+                                        <img src="~/Images/News/@x.ImageName" alt="news">
                                     </a>
                                 </div>
                                 <div class="blog-content">
@@ -40,11 +40,11 @@
                                         </span>
                                     </h4>
                                     <h3>
-                                        <a asp-action="Details" asp-controller="Blog" asp-route-id="@x.BlogId">
-                                            @x.BlogTitle
+                                        <a asp-action="Details" asp-controller="News" asp-route-id="@x.NewsID">
+                                            @x.NewsHeadline
                                         </a>
                                     </h3>
-                                    <a asp-action="Details" asp-controller="Blog" asp-route-id="@x.BlogId" class="btn btn-primary">
+                                    <a asp-action="Details" asp-controller="News" asp-route-id="@x.NewsID" class="btn btn-primary">
                                         Read More
                                     </a>
                                 </div>
