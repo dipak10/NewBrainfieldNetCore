@@ -1,0 +1,58 @@
+﻿@model List<NewBrainfieldNetCore.Entities.tblBlogs>
+@{
+    Layout = "_FrontendLayout";
+}
+
+<div class="page-title">
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="container">
+                <h3>All Blog</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<section class="blog-area ptb-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="row">
+                    @foreach (var x in Model)
+                    {
+                        <div class="col-lg-4 col-md-4">
+                            <div class="single-blog">
+                                <div class="blog-img">
+                                    <a href="#">
+                                        <img src="~/Images/Blog/@x.BlogImage" alt="blog">
+                                    </a>
+                                </div>
+                                <div class="blog-content">
+                                    <h4>
+                                        <span>
+                                            <i class="icofont-ui-user"></i> Posted by
+                                            <a href="#">Admin</a>
+                                        </span>
+                                        <span class="date">
+                                            <i class="icofont-ui-calendar"></i>
+                                            @x.CreatedDate.ToString("dd MMM, yyyy")
+                                        </span>
+                                    </h4>
+                                    <h3>
+                                        <a asp-action="SingleBlog" asp-controller="Blog" asp-route-id="@x.BlogId">
+                                            @x.BlogTitle
+                                        </a>
+                                    </h3>
+                                    <a asp-action="SingleBlog" asp-controller="Blog" asp-route-id="@x.BlogId" class="btn btn-primary">
+                                        Read More
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,71 @@
+﻿@model NewBrainfieldNetCore.Entities.tblBlogs
+
+@{
+    Layout = "_FrontendLayout";
+}
+
+<div class="page-title">
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="container">
+                <h3>Blog Details</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="blog-details-area ptb-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-2 col-md-2"></div>
+            <div class="col-lg-8 col-md-12">
+                <div class="blog-details">
+                    <div class="article-img">
+                        <img src="~/Images/Blog/@Model.BlogImage" alt="blog-details">
+                        <div class="date">@Model.CreatedDate.ToString("dd") <br> @Model.CreatedDate.ToString("MMM") </div>
+                    </div>
+                    <div class="article-text">
+                        <ul class="post-meta">
+                            <li><i class="icofont-ui-user"></i> <a href="#">Admin</a></li>
+                            <li><i class="icofont-folder-open"></i> <a href="#">Brainfield Blogs</a></li>
+                        </ul>
+                        <h4 class="title">
+                            @Model.BlogTitle
+                        </h4>
+
+                        <p>
+                            @Html.Raw(Model.BlogContent)
+                        </p>
+
+                        <div class="author-share">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="article-author">
+                                        <div class="author-img">
+                                            <img src="~/assets/img/client-avatar1.jpg" alt="client">
+                                        </div>
+                                        <div class="author-title">
+                                            <h4>Admin</h4>
+                                            <span>Brainfield Educational Service</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6">
+                                    <ul class="social-share">
+                                        <li><a href="#" data-bs-toggle="tooltip" data-placement="top" title="Share on Facebook"><i class="icofont-facebook"></i></a></li>
+                                        <li><a href="#" data-bs-toggle="tooltip" data-placement="top" title="Share on Twitter"><i class="icofont-twitter"></i></a></li>
+                                        <li><a href="#" data-bs-toggle="tooltip" data-placement="top" title="Share on Linkedin"><i class="icofont-linkedin"></i></a></li>
+                                        <li><a href="#" data-bs-toggle="tooltip" data-placement="top" title="Share on Instagram"><i class="icofont-instagram"></i></a></li>
+                                        <li><a href="#" data-bs-toggle="tooltip" data-placement="top" title="Share on Google Plus"><i class="icofont-google-plus"></i></a></li>
+                                        <li><a href="#" data-bs-toggle="tooltip" data-placement="top" title="Share on Vimeo"><i class="icofont-vimeo"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-2"></div>
+        </div>
+    </div>
+</section>

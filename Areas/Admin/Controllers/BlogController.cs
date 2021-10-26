@@ -45,22 +45,39 @@ namespace NewBrainfieldNetCore.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Add(BlogDTO dto)
         {
-            string image = UploadedFile(dto);
+            try
+            {
+                string image = UploadedFile(dto);
 
-            tblBlogs blog = new tblBlogs();
-            blog.BlogTitle = dto.BlogTitle;
-            blog.BlogContent = dto.BlogContent;
-            blog.BlogImage = image;
-            blog.IsActive = true;
-            blog.IsAppOnly = false;
-            blog.CreatedDate = DateTime.Now.ConvertToIndianTime();
+                tblBlogs blog = new tblBlogs();
+                blog.BlogTitle = dto.BlogTitle;
+                blog.BlogContent = dto.BlogContent;
+                blog.BlogImage = image;
+                blog.IsActive = true;
+                blog.IsAppOnly = false;
+                blog.CreatedDate = DateTime.Now.ConvertToIndianTime();
 
-            _entity.tblBlogs.Add(blog);
-            _entity.SaveChanges();
+                _entity.tblBlogs.Add(blog);
+                _entity.SaveChanges();
 
-            ModelState.Clear();
+                _notyf.Success("Blog Added Successfully");
 
-            return View();
+                ModelState.Clear();
+
+                return View();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+
+                _notyf.Error("Error Occured while adding blog");
+
+                return RedirectToAction("Index");
+            }
+            finally
+            {
+                Dispose();
+            }
         }
 
         public ActionResult Details(int? id)
