@@ -218,10 +218,12 @@
             @foreach (var testimonial in Model.Testimonials)
             {
                 <div class="col-lg-12 col-md-12">
-                    <div class="single-feedback">
-                        <img src="~/Images/Testimonials/@testimonial.StudentImage" alt="@testimonial.TestimonialBy" />
+                    <div class="single-feedback" style="height:250px;">                        
+                        <img src="~/assets/img/vector.png" />
                         <div class="feedback-content">
-                            <i class="icofont-quote-left"></i>
+                            <i>
+                                <img src="~/Images/Testimonials/@testimonial.StudentImage" alt="@testimonial.TestimonialBy" style="height:100%" />
+                            </i>
                             <p>
                                 @testimonial.TestimonialText
                             </p>

@@ -3163,6 +3163,19 @@ a {
     transition: .4s
 }
 
+    .feedback-content img {
+        position: absolute;        
+        width: 90px;
+        height: 100px;
+        text-align: center;
+        font-size: 55px;
+        background: #e60c3d;
+        color: #fff;
+        line-height: 100px;
+        border-radius: 5px;
+    }
+
+
     .feedback-content i {
         position: absolute;
         left: 30px;
