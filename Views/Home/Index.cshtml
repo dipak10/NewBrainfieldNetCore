@@ -218,7 +218,7 @@
             @foreach (var testimonial in Model.Testimonials)
             {
                 <div class="col-lg-12 col-md-12">
-                    <div class="single-feedback" style="height:250px;">                        
+                    <div class="single-feedback" style="height:250px;">
                         <img src="~/assets/img/vector.png" />
                         <div class="feedback-content">
                             <i>
@@ -249,24 +249,37 @@
 <section class="news-area ptb-100">
     <div class="container">
         <div class="section-title">
-            <h3>Brainfield News</h3>
+            <h3>EduField News</h3>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco .</p>
         </div>
         <div class="row">
             <div class="news-slider">
-                @foreach (var news in Model.Blogs)
+                @foreach (var news in Model.News)
                 {
                     <div class="col-lg-12 col-md-12">
-                        <div class="single-blog-post">
-                            <img src="~/Images/Blog/@news.BlogImage" alt="blog" />
-                            <div class="date"><span>@news.CreatedDate.ToShortDateString()</span></div>
-                            <div class="blog-post-content">
-                                <h3><a href="#">@news.BlogTitle</a></h3>
-                                <p class="text-truncate">@news.BlogContent</p>
-                                <a href="#" class="read-more">
+                        <div class="single-card-post">
+                            <div class="blog-img">
+                                <a asp-action="Details" asp-controller="News" asp-route-id="@news.NewsID">
+                                    <img src="~/Images/News/@news.ImageName" alt="news" />
+                                </a>
+                                <div class="date">
+                                    <span>
+                                        @news.CreatedDate.ToString("dd MMMM, yyyy")
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="blog-card-content">
+                                <h3>
+                                    <a asp-action="Details" asp-controller="News" asp-route-id="@news.NewsID">
+                                        @news.NewsHeadline
+                                    </a>
+                                </h3>
+                                <p>@news.NewsShortDetail</p>
+                                <a asp-action="Details" asp-controller="News" asp-route-id="@news.NewsID" class="read-more">
                                     <span class="left">
                                         <i class="icofont-rounded-double-right"></i>
-                                    </span> Read More
+                                    </span>
+                                    Read More 
                                     <span class="right">
                                         <i class="icofont-rounded-double-right"></i>
                                     </span>

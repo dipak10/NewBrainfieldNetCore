@@ -42,14 +42,24 @@ namespace NewBrainfieldNetCore.Controllers
                 //    Helpers.GlobalVariables.UserId = data.UserID;
                 //}
                 //
-                var blogsTask = await _homeService.GetHomePageNews();
-                var testimonialsTask = await _homeService.GetTestimonials();
+
+                Stopwatch sw = new Stopwatch();
+                sw.Start();
+
+                var news = await _homeService.GetHomePageNews();
+                var testimonials = await _homeService.GetTestimonials();
 
                 var model = new HomePageViewModel
                 {
-                    Blogs = blogsTask,
-                    Testimonials = testimonialsTask
+                    News = news,
+                    Testimonials = testimonials
                 };
+
+                sw.Stop();
+
+                var time = sw.ElapsedMilliseconds.ToString();
+
+                _logger.LogDebug($"Time take to load home page 62 {time}");
 
                 return View(model);
             }

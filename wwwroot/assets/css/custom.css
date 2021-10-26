@@ -2,6 +2,14 @@
     margin-top: 6rem !important;
 }
 
+.blog-img {
+    height: 220px;
+}
+
+    .blog-img img {
+        height: 100%;
+    }
+
 .text-truncate {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -12,7 +20,7 @@
 .top-custom-header-area {
     background-color: dodgerblue;
     padding: 7px;
-    color: white;    
+    color: white;
 }
 
     .top-custom-header-area p {

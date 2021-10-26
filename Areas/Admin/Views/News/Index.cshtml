@@ -1,0 +1,92 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@model List<NewBrainfieldNetCore.Entities.tblNews>
+
+@{
+    Layout = "_AdminLayout";
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>News List</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="content">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">
+                <a class="btn btn-primary"
+                   asp-area="Admin"
+                   asp-controller="News"
+                   asp-action="Add">
+                    Add
+                </a>
+            </h3>
+
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="card-body table-responsive p-0" style="height: 300px;">
+            <table class="table table-head-fixed text-nowrap">
+                <thead>
+                    <tr>
+                        <th>News Headline</th>
+                        <th>News Short Detail</th>
+                        <th>News Image</th>
+                        <th>Created On</th>
+                        <th>Detail</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var x in Model)
+                    {
+                        <tr>
+                            <td>@x.NewsHeadline</td>
+                            <td>@x.NewsShortDetail</td>
+                            <td>
+                                <img src="~/Images/News/@Html.DisplayFor(modelItem => x.ImageName)" alt="news image" style="height:100px; width:100px;" />
+                            </td>
+                            <td>@x.CreatedDate</td>
+                            <td>
+                                <a class="btn btn-info mr-3"
+                                   asp-area="Admin"
+                                   asp-controller="Blog"
+                                   asp-action="Details"
+                                   asp-route-id="@x.NewsID">
+                                    Details
+                                </a>
+                            </td>
+                            <td>
+                                <a class="btn btn-danger"
+                                   asp-area="Admin"
+                                   asp-controller="Blog"
+                                   asp-action="Delete"
+                                   asp-route-id="@x.NewsID">
+                                    Delete
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>

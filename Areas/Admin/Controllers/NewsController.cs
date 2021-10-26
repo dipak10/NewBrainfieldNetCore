@@ -15,25 +15,23 @@ using System.Threading.Tasks;
 namespace NewBrainfieldNetCore.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class BlogController : Controller
+    public class NewsController : Controller
     {
-        private readonly ApplicationContext _entity;
-        private readonly ICommonService _commonService;
+        private readonly ApplicationContext _entity;        
         private readonly INotyfService _notyf;
         private readonly IWebHostEnvironment _hostEnvironment;
 
-        public BlogController(ApplicationContext entity, ICommonService commonService, INotyfService notyf, IWebHostEnvironment hostEnvironment)
+        public NewsController(ApplicationContext entity, INotyfService notyf, IWebHostEnvironment hostEnvironment)
         {
-            this._entity = entity;
-            this._commonService = commonService;
-            this._notyf = notyf;
-            this._hostEnvironment = hostEnvironment;
+            _entity = entity;            
+            _notyf = notyf;
+            _hostEnvironment = hostEnvironment;
         }
 
         public IActionResult Index()
         {
-            List<tblBlogs> blogs = _entity.tblBlogs.ToList();
-            return View(blogs);
+            List<tblNews> news = _entity.tblNews.ToList();
+            return View(news);
         }
 
         public IActionResult Add()
@@ -43,24 +41,42 @@ namespace NewBrainfieldNetCore.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Add(BlogDTO dto)
+        public async Task<IActionResult> Add(NewsDTO dto)
         {
-            string image = UploadedFile(dto);
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    string image = await UploadedFile(dto);
 
-            tblBlogs blog = new tblBlogs();
-            blog.BlogTitle = dto.BlogTitle;
-            blog.BlogContent = dto.BlogContent;
-            blog.BlogImage = image;
-            blog.IsActive = true;
-            blog.IsAppOnly = false;
-            blog.CreatedDate = DateTime.Now.ConvertToIndianTime();
+                    tblNews news = new tblNews();
+                    news.NewsHeadline = dto.NewsHeadline;
+                    news.NewsShortDetail = dto.NewsShortDetail;
+                    news.NewsDetail = dto.NewsDetail;
+                    news.ImageName = image;
+                    news.IsActive = true;
+                    news.CreatedDate = DateTime.Now.ConvertToIndianTime();
 
-            _entity.tblBlogs.Add(blog);
-            _entity.SaveChanges();
+                    await _entity.tblNews.AddAsync(news);
+                    await _entity.SaveChangesAsync();
 
-            ModelState.Clear();
+                    _notyf.Success("News Added Successfully");
 
-            return View();
+                    ModelState.Clear();
+
+                    return View();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    _notyf.Error("Error occured while adding news");
+                }
+                finally
+                {
+                    Dispose();
+                }
+            }
+            return RedirectToAction("Index");
         }
 
         public ActionResult Details(int? id)
@@ -69,7 +85,7 @@ namespace NewBrainfieldNetCore.Areas.Admin.Controllers
             {
                 if (id > 0)
                 {
-                    tblBlogs data = _entity.tblBlogs.Where(x => x.BlogId == id).FirstOrDefault();
+                    tblNews data = _entity.tblNews.Where(x => x.NewsID == id).FirstOrDefault();
                     if (data != null)
                     {
                         return View(data);
@@ -80,7 +96,7 @@ namespace NewBrainfieldNetCore.Areas.Admin.Controllers
             catch (Exception e)
             {
                 Console.Write(e);
-                return RedirectToAction("DisplayBlog");
+                return RedirectToAction("Index");
             }
         }
 
@@ -90,11 +106,11 @@ namespace NewBrainfieldNetCore.Areas.Admin.Controllers
             {
                 if (id > 0)
                 {
-                    var data = _entity.tblBlogs.Where(x => x.BlogId == id).FirstOrDefault();
+                    var data = _entity.tblNews.Where(x => x.NewsID == id).FirstOrDefault();
                     if (data != null)
                     {
-                        RemoveImage(data.BlogImage);
-                        _entity.tblBlogs.Remove(data);
+                        RemoveImage(data.ImageName);
+                        _entity.tblNews.Remove(data);
                         _entity.SaveChanges();
                     }
                 }
@@ -106,20 +122,19 @@ namespace NewBrainfieldNetCore.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
-
         #region AddImage
-        private string UploadedFile(BlogDTO model)
+        private async Task<string> UploadedFile(NewsDTO model)
         {
             string uniqueFileName = null;
 
-            if (model.BlogImage != null)
+            if (model.ImageName != null)
             {
-                string uploadsFolder = Path.Combine(_hostEnvironment.WebRootPath, "Images\\Blog");
-                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.BlogImage.FileName;
+                string uploadsFolder = Path.Combine(_hostEnvironment.WebRootPath, "Images\\News");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.ImageName.FileName;
                 string filePath = Path.Combine(uploadsFolder, uniqueFileName);
                 using (var fileStream = new FileStream(filePath, FileMode.Create))
                 {
-                    model.BlogImage.CopyTo(fileStream);
+                    await model.ImageName.CopyToAsync(fileStream);
                 }
             }
             return uniqueFileName;

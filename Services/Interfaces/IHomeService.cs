@@ -10,6 +10,6 @@ namespace NewBrainfieldNetCore.Services.Interfaces
     {
         Task<List<tblTestimonials>> GetTestimonials();
 
-        Task<List<tblBlogs>> GetHomePageNews();      
+        Task<List<tblNews>> GetHomePageNews();      
     }
 }

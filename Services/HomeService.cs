@@ -18,9 +18,9 @@ namespace NewBrainfieldNetCore.Services
             this.context = context;
         }
 
-        public async Task<List<tblBlogs>> GetHomePageNews()
+        public async Task<List<tblNews>> GetHomePageNews()
         {
-            return await context.tblBlogs.Where(x => x.IsActive == true && x.IsAppOnly == false).OrderByDescending(x => x.CreatedDate).ToListAsync();
+            return await context.tblNews.Where(x => x.IsActive == true).OrderByDescending(x => x.CreatedDate).ToListAsync();
         }
 
         public async Task<List<tblTestimonials>> GetTestimonials()
