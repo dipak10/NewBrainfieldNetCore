@@ -1,0 +1,54 @@
+﻿@model NewBrainfieldNetCore.Viewmodels.Menu.MenuViewModel
+
+@{
+    //Layout = "_FrontendLayout";
+    Layout = null;
+}
+
+<div class="classynav">
+    <ul>
+        <li class="cn-dropdown-item has-down pr12">
+            <a href="#" class="active">Home</a>
+        </li>
+        <li class="cn-dropdown-item has-down pr12">
+            <a href="#">About Us</a>
+        </li>
+        <li>
+            <a href="#">Exams</a>
+            <ul class="dropdown">
+                @foreach (var x in Model.ExamCategories)
+                {
+                    <li>
+
+                        <a href="courses-style-one.html">@x.ExamCategoryName</a>
+                    </li>
+
+                }
+            </ul>
+        </li>
+        <li class="cn-dropdown-item has-down pr12">
+            <a href="#">Packages</a>
+        </li>
+        <li class="cn-dropdown-item has-down pr12">
+            <a href="#">Videos</a>
+            <ul class="dropdown">
+                <li><a href="blog-style-one.html">Free Video</a></li>
+                <li><a href="blog-style-two.html">Premium Videos</a></li>
+            </ul>
+        </li>
+        <li class="cn-dropdown-item has-down pr12">
+            <a href="#">Study Material</a>
+            <ul class="dropdown">
+                @foreach (var y in Model.StudyMaterialCategories)
+                {
+                    <li>
+                        <a href="shop-style-one.html">@y.StudyMaterialCategoryName</a>
+                    </li>
+                }
+            </ul>
+        </li>
+        <li class="cn-dropdown-item has-down pr12">
+            <a href="#">Download</a>
+        </li>
+    </ul>
+</div>
