@@ -1,6 +1,18 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model List<NewBrainfieldNetCore.Entities.tblGallery>
 @{
     Layout = "_FrontendLayout";
 }
+
+<div class="container">
+
+    <div class="row text-center text-lg-start mt-5">
+        @foreach (var x in Model)
+        {
+            <div class="col-lg-3 col-md-4 col-6">
+                <a href="#" class="d-block mb-4 h-100">
+                    <img class="img-fluid img-thumbnail" src="~/Images/Gallery/@x.ImageName" alt="">
+                </a>
+            </div>
+        }
+    </div>
+</div>
