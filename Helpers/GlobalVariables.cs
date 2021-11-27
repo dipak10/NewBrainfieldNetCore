@@ -9,7 +9,7 @@ namespace NewBrainfieldNetCore.Helpers
     {
         public static int ExamId = 0;
         public static int UserId;
-        public static int OrderId = 0;
+        public static long OrderId = 0;
         public static string ReturnUrl = string.Empty;
         public static int ProductId;
         public static string ControllerName = string.Empty;
@@ -21,6 +21,7 @@ namespace NewBrainfieldNetCore.Helpers
         public static string CountryName = string.Empty;
         public static string ProductType = string.Empty;
         public static int StudyMaterialId = 0;
+        public static PaymentRequestFrom PaymentRequestFrom = PaymentRequestFrom.None;
 
         public static string[] StaticRightWrong = new string[180];
 
@@ -30,5 +31,14 @@ namespace NewBrainfieldNetCore.Helpers
         public static readonly string Warning = "Something Went Wrong, Try Again Later.";
 
         public static readonly string EmptyCart = "Your Cart Is Empty";
+    }
+
+    public enum PaymentRequestFrom
+    {
+        ExamPackage = 0,
+        StudyMaterial = 1,
+        Videos = 2,
+        Admission = 3,
+        None = 99
     }
 }

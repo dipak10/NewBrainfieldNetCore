@@ -325,7 +325,7 @@ namespace NewBrainfieldNetCore.Controllers
                 tblExamAppear ea = new tblExamAppear();
                 ea.UserID = GlobalVariables.UserId;
                 ea.ExamID = GlobalVariables.ExamId;
-                ea.OrderID = GlobalVariables.OrderId;
+                ea.OrderID = Convert.ToInt32(GlobalVariables.OrderId);
                 ea.Appear = gettotalappered++;
                 ea.LastUpdated = DateTime.Now;
                 await entity.tblExamAppear.AddAsync(ea);

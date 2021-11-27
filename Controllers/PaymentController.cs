@@ -62,10 +62,34 @@ namespace NewBrainfieldNetCore.Controllers
 
             queryHelper = new QueryHelper(applicationContext: context);
 
+            if (GlobalVariables.OrderId > 0)
+            {
+                OrderNo = Convert.ToString(GlobalVariables.OrderId);
+            }
+
             SetEnvironmentValues();
         }
 
+        [HttpGet]
+        public IActionResult ProcessPayment()
+        {
+            //GenrateOrderNo();
 
+            Dictionary<string, object> body = GenerateParameters();
+
+            string paytmChecksum = Paytm.Checksum.generateSignature(JsonConvert.SerializeObject(body), Mkey);
+
+            Head.Add("signature", paytmChecksum);
+
+            RequestBody.Add("body", body);
+            RequestBody.Add("head", Head);
+
+            SendRequest();
+
+            GetRequestResponse();
+
+            return View(MyDeserializedClass);
+        }
 
         [HttpGet]
         public IActionResult Index()
@@ -91,6 +115,7 @@ namespace NewBrainfieldNetCore.Controllers
             }
             catch (Exception e)
             {
+                Console.WriteLine($"Error Occured {e.InnerException}");
                 return RedirectToAction("Index", "Home");
             }
             finally
@@ -123,10 +148,14 @@ namespace NewBrainfieldNetCore.Controllers
 
             if (status == "TXN_SUCCESS" && respcode == "01")
             {
-                if (globalreqfrom == "Admission")
+                if (GlobalVariables.PaymentRequestFrom == PaymentRequestFrom.Admission)
                 {
                     //UpdateTable(globalreqfrom, transid);
                     return RedirectToAction("AdmissionSuccess");
+                }
+                else if (GlobalVariables.PaymentRequestFrom == PaymentRequestFrom.StudyMaterial)
+                {
+                    return RedirectToAction("StudyMaterialPaymentSuccess", "StudyMaterial");
                 }
                 else
                 {
@@ -136,9 +165,13 @@ namespace NewBrainfieldNetCore.Controllers
             }
             else
             {
-                if (globalreqfrom == "Admission")
+                if (GlobalVariables.PaymentRequestFrom  == PaymentRequestFrom.Admission)
                 {
                     return RedirectToAction("AdmissionFailure");
+                }
+                else if (GlobalVariables.PaymentRequestFrom == PaymentRequestFrom.StudyMaterial)
+                {
+                    return RedirectToAction("PaymentFailure", "StudyMaterial");
                 }
                 else
                 {
