@@ -19,8 +19,9 @@
                 @foreach (var x in Model.ExamCategories)
                 {
                     <li>
-
-                        <a href="courses-style-one.html">@x.ExamCategoryName</a>
+                        <a asp-action="Index" asp-controller="Exams" asp-route-id="@x.ExamCategoryName">
+                            @x.ExamCategoryName
+                        </a>
                     </li>
 
                 }
@@ -42,7 +43,9 @@
                 @foreach (var y in Model.StudyMaterialCategories)
                 {
                     <li>
-                        <a href="shop-style-one.html">@y.StudyMaterialCategoryName</a>
+                        <a asp-action="Index" asp-controller="StudyMaterial" asp-route-id="@y.StudyMaterialCategoryID">
+                            @y.StudyMaterialCategoryName
+                        </a>
                     </li>
                 }
             </ul>
