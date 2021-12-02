@@ -8,7 +8,7 @@
 <div class="classynav">
     <ul>
         <li class="cn-dropdown-item has-down pr12">
-            <a href="#" class="active">Home</a>
+            <a asp-action="Index" asp-controller="Home" class="active">Home</a>
         </li>
         <li class="cn-dropdown-item has-down pr12">
             <a href="#">About Us</a>
@@ -33,7 +33,7 @@
         <li class="cn-dropdown-item has-down pr12">
             <a href="#">Videos</a>
             <ul class="dropdown">
-                <li><a href="blog-style-one.html">Free Video</a></li>
+                <li><a asp-controller="StudyVideos" asp-action="Index">Free Video</a></li>
                 <li><a href="blog-style-two.html">Premium Videos</a></li>
             </ul>
         </li>
@@ -51,7 +51,7 @@
             </ul>
         </li>
         <li class="cn-dropdown-item has-down pr12">
-            <a href="#">Download</a>
+            <a asp-action="Index" asp-controller="Download">Download</a>
         </li>
     </ul>
 </div>
