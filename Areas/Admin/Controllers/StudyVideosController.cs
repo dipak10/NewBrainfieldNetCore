@@ -49,7 +49,7 @@ namespace NewBrainfieldNetCore.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 try
-                {
+                {                   
                     var map = _mapper.Map<tblVideos>(model);
                     var call = await _studyVideosServices.AddVideoes(map);
                     ModelState.Clear();
