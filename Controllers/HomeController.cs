@@ -64,6 +64,11 @@ namespace NewBrainfieldNetCore.Controllers
             return RedirectToAction("Error");
         }
 
+        public async Task<IActionResult> AboutUS()
+        {
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();
